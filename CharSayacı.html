@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!-- Modify or remove all items marked xxx -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Char Sayacı </title>
+
+
+</head>
+
+<body>
+
+<h2 id=title></h2>
+
+<input size = "10" id=out type="text">
+<hr />
+<textarea rows = "12" cols = "40" id=inp onKeyUp="out.value=inp.textLength"></textarea>
+
+<hr />
+<b>Sample code</b>
+
+<hr />
+<pre id="sample">onKeyUp="out.value=txa.textLength"</pre>
+<pre id=sample></pre>
+
+<hr />
+
+
+<script>
+    //global variable id is the HTML element with id 
+    //const title = document.getElementById("title");
+    title.innerText = document.title;
+    sample.innerText = cnt.toString();
+    out.innerHTML = "Modify all items marked xxx";
+    var count = 0; cnt();
+</script>
+
+</body>
+</html>
