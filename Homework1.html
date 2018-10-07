@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Array Methods </title>
+</head>
+<style>
+#nameX {
+    margin-left: 2.1%
+}
+#midT {
+    margin: 5px 5px 5px 10px; 
+}
+#fnl {
+    margin-left: 2.5%
+}
+</style>
+
+<script>
+"use strict";
+var max = 0;
+var maxN = "";
+function Kaydet(){
+	 var name = document.getElementById("nameX").value;
+	 var midT = document.getElementById("midT").value;
+	 var son = document.getElementById("fnl").value;;
+	 var record = [name,midT,son];
+	 
+	 a.push(record);
+	 
+	
+	
+}
+function average(){
+	var avg = 0;
+	var cıktı = "";
+	var space = "     \t";
+	for (var i = 0; i < a.length; i++) { 
+		avg = Number(a[i][1]) + Number(a[i][2]);
+		avg = avg /2 ;
+		if (avg > max){
+			maxN = a[i][0];
+			max = avg;
+		}
+		cıktı = cıktı + a[i][0];
+		cıktı = cıktı + space;
+		cıktı = cıktı + avg ;
+		cıktı = cıktı + "<br/>";
+		
+	}
+	document.getElementById("mesaj2").innerHTML = cıktı;	
+	}
+function Print(){
+	 var n2 = "";
+	 var space = "    \t";
+	for (var i = 0; i < a.length; i++) { 
+		for(var j= 0; j<a[i].length; j++){
+		
+			var n1 = a[i][j];
+			n2 = n2 + n1;
+			
+			var n2 = n2 + space ;
+
+		}
+	document.getElementById("mesaj1").innerHTML = n2 ;
+	n2 = n2 + "<br/>"
+	}
+	
+}
+function Max(){
+	document.getElementById("mesaj3").innerHTML = maxN + " "+max;
+}
+
+</script>
+
+<body>
+<h2 id=title></h2>
+<p>
+Name<input type=text id=nameX  style="width:99px">  
+</p>
+<p>
+Midterm<input type=number   id=midT  style="width:99px"> 
+</p>
+Final<input type=number   id=fnl   style="width:99px"> 
+</p><p>
+<input type=button value="Add"  onClick="Kaydet()">
+</p><p>
+<pre>
+<input type=button value="Print"onClick="Print()">   <input type=button value="Avg"  onClick="average()"> <input type=button value="Max"  onClick="Max()">
+
+</pre>
+
+</p>
+
+
+
+<hr />
+<p>Name Midterm Final
+<pre><p id="mesaj1"></p></pre>
+
+<hr />
+<p>Name Average
+<pre><p id="mesaj2"></p></pre>
+<hr />
+<p>Max
+<p id="mesaj3"></p>
+<hr />
+<p>Ref: 
+<a href="https://www.w3schools.com/js/js_arrays.asp" target="ExternalDocument">Array Examples</a></p>
+<p>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections" target="ExternalDocument">Set Examples</a>
+</p>
+
+<script>	
+  const a = []; 
+</script>
+
+</body>
+</html>
