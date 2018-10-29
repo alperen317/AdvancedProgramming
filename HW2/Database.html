@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="Database.js"></script>
+    <title>HomeWork 2</title>
+</head>
+
+<script>
+   const Q = new Database()
+	Q.readStudent;
+    Q.readCoruses;
+	
+	
+	
+	function dersBul(){
+		// console.log(idNumber.value+"  "+typeof(idNumber.value))    
+		//-----> 2  string
+		
+		if(idNumber.value == '' ){
+			alert("İd giriniz!!!!!")
+			
+		}else{
+		let a = Q.dersBul(idNumber.value);
+		
+		let msg = a.student_id+"\t"+a.student_name+"\t"+a.student_gpa+"\t"+a.student_courses.length+"  Courses </br> "
+		for(let course of a.student_courses){
+				msg += course+"</br>"
+		}
+		out.innerHTML = msg
+		}
+	}
+	function bestGPA(){
+		
+		let maxGpa = Q.findBest()
+		out.innerHTML =maxGpa.student_id+"\t"+maxGpa.student_name+"\t"+maxGpa.student_gpa 
+		
+	}
+	function randomStdId(){
+		 let s = Q.randomStdId();
+		 let a = Q.dersBul(s)
+		 
+		 console.log(a)
+		
+		let msg = a.student_id+"\t"+a.student_name+"\t"+a.student_gpa+"\t"+a.student_courses.length+"  Courses </br> "
+		for(let course of a.student_courses){
+				msg += course+"</br>"
+		}
+		out.innerHTML = msg
+		
+	   
+	
+	}
+	function bigGpa(){
+		
+		if(Gpa.value == '' ){
+			alert("Gpa giriniz!!!!!")
+			
+		}else{
+		
+		let a = Q.biggerThan(Gpa.value)
+		out.innerHTML = Gpa.value+" ortalamadan yüksek öğrenci sayısı = "+a
+		}
+	}
+	function searchStudent(){
+		if(course_code.value == '' ){
+			alert("Kurs kodu giriniz!!!!!")
+			
+		}else{
+		
+		let a = course_code.value
+		let msg= Q.searchStudent(a)
+		out.innerHTML = msg
+		}
+	}
+	function derslikBul(){
+		
+		
+		let a = room_code.value;
+		let msg = Q.derslikBul(a)
+		out.innerHTML = msg
+		
+	}
+	function examDate(){
+		if(idNumber.value == '' ){
+			alert("İd giriniz!!!!!")
+			
+		}else{
+		let a = Q.dersBul(idNumber.value);
+			//student 
+		let msg = "İd :"+a.student_id+"  Name :"+a.student_name+"\n"
+		 msg += Q.sınavTakvimi(a)
+		out.innerHTML = msg
+		}
+	
+	
+	}
+	
+	
+	
+	
+</script>
+
+<body>
+    <h2 id=title>HomeWork 2</h2>
+	<hr />
+		
+    <p id=outA></p>
+    <p>
+        <b>İd</b> &emsp;&emsp;<input type=text id=idNumber style="width:100px; margin-left: 6px;">
+    </p>
+	<p>
+        <input type=button value="Öğrencinin Sınav Takvimini " onClick="examDate()">
+    </p>
+	
+    <p>
+        <input type=button value="Öğrenci Bul" onClick="dersBul()">
+    </p>
+	 <p>
+        <input type=button value="Best GPA" onClick="bestGPA()">
+    </p>
+	 <p>
+        <input type=button value="Random Student" onClick="randomStdId()">
+    </p>
+	<p>
+	<hr />
+        <b>Gpa</b> &emsp;&emsp;<input type=text id=Gpa style="width:100px; margin-left: 70px;">  <input type=button value=" > Gpa " onClick="bigGpa()">
+    </p>
+	
+	<p>
+        <b>Kurs Kodu</b> &emsp;&emsp;<input type=text id=course_code style="width:100px; margin-left: 20px;">  <input type=button value=" Öğrenci Bul " onClick="searchStudent()">
+    </p>
+	<p>
+        <b>Derslik Kodu</b> &emsp;&emsp;<input type=text id=room_code style="width:100px; margin-left: 6px;">  <input type=button value=" Ders Bul " onClick="derslikBul()" >
+    </p>
+
+
+    <hr />
+	<pre><p id=out >Result:</p></pre>
+	<hr />
+	
+    <p>
+	<p>
+        
+    </p>
+		<p>
+        
+    </p>
+		<p>
+        
+    </p>
+	<p>
+       by Ali Alperen ASLAN 
+    </p>
+	
+   
+</body>
+	 
+</html>
