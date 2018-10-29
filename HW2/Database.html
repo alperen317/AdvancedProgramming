@@ -24,7 +24,7 @@
 		}else{
 		let a = Q.dersBul(idNumber.value);
 		
-		let msg = a.student_id+"\t"+a.student_name+"\t"+a.student_gpa+"\t"+a.student_courses.length+"  Courses </br> "
+		let msg = "İd : "+a.student_id+"\t"+a.student_name+"\t"+a.student_gpa+"\t"+a.student_courses.length+"  Courses </br> "
 		for(let course of a.student_courses){
 				msg += course+"</br>"
 		}
