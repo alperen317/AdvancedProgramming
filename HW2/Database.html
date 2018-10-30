@@ -96,6 +96,20 @@
 	
 	
 	}
+	function addStudent(){
+	  let id = idX.value;
+	  let name = nameX.value;
+	  let gpa = GpaX.value;
+	  let student = new Student(idX.value, nameX.value, parseInt(GpaX.value));
+	  Q.newStudent(student);
+	  
+		
+	}
+	function addCourse(){
+	  let a	= Q.newAddCourse(idY.value);
+	  a.addCourse(courseY.value)
+	
+	}
 	
 	
 	
@@ -106,7 +120,17 @@
 	
     <h2 id=title>HomeWork 2</h2>
 	<hr />
-		
+		<b>İd</b> &emsp;&emsp;<input type=text id=idX style="width:100px; margin-left: 6px;">
+		<b>Name</b> &emsp;&emsp;<input type=text id=nameX style="width:100px; margin-left: 6px;">
+		<b>Gpa</b> &emsp;&emsp;<input type=text id=GpaX style="width:100px; margin-left: 6px;">
+		<p>
+		<input type=button value="Öğrenci Ekle " onClick="addStudent()">
+	<hr />
+		<b>İd</b> &emsp;&emsp;<input type=text id=idY style="width:100px; margin-left: 6px;">
+		<b>Course</b> &emsp;&emsp;<input type=text id=courseY style="width:100px; margin-left: 6px;">
+		<p>
+		<input type=button value="Ders Ekle " onClick="addCourse()">
+	<hr />	
     <p id=outA></p>
     <p>
         <b>İd</b> &emsp;&emsp;<input type=text id=idNumber style="width:100px; margin-left: 6px;">

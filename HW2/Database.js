@@ -206,10 +206,22 @@ class Database{
 		for(let lesson of a){
 			for(var [key, value] of mp1){
 				if(key == lesson){
-					msg += "Code : "+key+"  Exam Date : "+value.course_date+"Course Time : "+value.course_time+"\n"
+					msg += "Code : "+key+"  Exam Date : "+value.course_date+"Course Time : "+value.course_time+" Room : "+value.course_rooms[0]+"\n"
+
 				}
 			}
 		}
 		return msg;
+	}
+	newStudent(s){
+		
+		this.database_students.set(s.student_id, s);
+		//console.log("ekleme işlemi yapıldı.")
+		//console.log(this.database_students.get(s.student_id))
+	}
+	newAddCourse(id){
+		let a = this.database_students.get(id);
+		console.log(a)
+		return	a;
 	}
 }
