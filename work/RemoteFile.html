@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Read local file </title>
+</head>
+
+<script>
+function onChange(event) {
+  var file = event.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    // The file's text will be printed here
+		
+    console.log(event.target.result)
+  };
+	
+  reader.readAsText(file);
+ 
+}
+</script>
+
+<style>
+  .thumb {
+     width: 400px;
+     border: 1px solid #000;
+     margin: 10px 5px 0 0;
+  }
+</style>
+
+<body>
+<h2 id=title></h2>
+<input type="file" onchange="onChange(event)">
+<p>
+<output id=msg>Select text or image </output>
+<output id=out></output>
+</p>
+
+<hr>
+<b>Sample code</b>
+<pre id=sample style="overflow-x:auto"></pre>
+<hr>
+<p>Ref: <a href="https://www.html5rocks.com/en/tutorials/file/dndfiles/" 
+      target="ExternalDocument">File selection</a>
+</p>
+
+<script>
+    
+
+</script>
+
+</body>
+</html>

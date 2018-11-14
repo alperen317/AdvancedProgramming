@@ -1,0 +1,148 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>CW6 </title>
+
+<script>
+readStudent()
+database_students = new Map();
+const studentsArray = []
+var randomArray = []
+
+
+
+ class Student{
+	constructor(id, name, gpa){
+		this.student_id = id;
+		this.student_name = name;
+		this.student_gpa = gpa;
+		this.student_courses = [];
+		
+	}
+	 addCourse(a){
+		 this.student_courses.push(a);
+		 
+	 }
+  toString(){
+	  return "İd : "+this.student_id+"Name : "+this.student_name+"Gpa : "+this.student_gpa+"Courses : "+this.student_courses;
+  }
+	
+}
+function readStudent() {
+		
+    fetch("https://maeyler.github.io/JS/data/Students.txt")
+        .then(res => res.text())
+		.then(res => [this.addStudents(res)])
+
+        
+}
+function addStudents(text){
+        let txt = text.split('\n');
+		// console.log(txt.length) // ---> 3129
+		// console.log(typeof(txt)+"  --- "+txt[0])
+		
+		for (let line of txt){
+			
+				let a = this.parseStudent(line);
+				a.student_id = parseInt(a.student_id)			
+			    database_students.set(a.student_id, a)
+				
+				studentsArray.push(a.student_id)
+		}
+				out.innerText ="Map' e  " +database_students.size + "  eklenmiştir  "+"\n"+"  Array'e  "+studentsArray.length+"  eklenmiştir"
+		// console.log(typeof(studentsArray[0])) string
+	}
+	
+function parseStudent(line){
+		
+		let s = line.split("\t");	
+		let student = new Student(s[0],s[1],s[2]);
+		let i;	
+		for(i=3; i<s.length; i++){
+			student.student_courses.push(s[i]);
+		}
+		
+		return student;	
+
+	}
+	
+	function searchArray(){
+		if(randomArray.length == 0){
+			alert("Random İd üretiniz...")
+		
+		}else{
+		var countTrue = 0
+		var countFalse = 0
+		var time1 = performance.now()
+		for(let number of randomArray){
+			if(studentsArray.includes(number)){
+				countTrue = countTrue + 1
+			}
+			else{
+				countFalse = countFalse + 1
+			}
+			
+		
+		}
+		time1 = performance.now() - time1
+		out.innerText ="Array "+"\n"+ "True : "+countTrue + "\n" + "False : "+countFalse+"\n"+"Time : "+time1.toPrecision(3)
+		}
+	}
+	
+	function searchMap(){
+		if(randomArray.length == 0){
+			alert("Random İd üretiniz...")
+		
+		}else{
+	  	var countTrue = 0
+		var countFalse = 0
+		var time1 = performance.now()
+		for(let number of randomArray){
+			if(database_students.has(number)){
+				countTrue = countTrue + 1
+			}
+			else{
+				countFalse = countFalse + 1
+			}
+			
+		
+		}
+		time1 = performance.now() - time1
+		out2.innerText ="Map "+"\n"+ "True : "+countTrue + "\n" + "False : "+countFalse+"\n"+"Time : "+time1.toPrecision(3)
+		}
+	}
+	function randomUret(){
+		let i = 0
+		for(i=1 ; i<10000; i++){
+		randomArray[i]= 116690000 + Math.floor(100 + Math.random() * 900);
+
+			}
+	
+	}
+	
+    
+
+</script>
+</head>
+
+<body>
+<h3>ClassWork 6</h3>
+
+<input type=button value="Array'de arama " onClick="searchArray()">
+<input type=button value="Map'de arama " onClick="searchMap()">
+<input type=button value="Random İd" onClick="randomUret()">
+<p id=out></p>
+<hr />
+<p id=out2></p>
+<hr />
+<b>Sample code</b>
+<pre id=sample></pre>
+<hr />
+
+<script>
+    
+</script>
+by Ali Alperen ASLAN
+</body>
+</html>
