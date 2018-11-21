@@ -12,3 +12,5 @@ AdvancedProgramming
 [CW5](https://alperen317.github.io/AdvancedProgramming/CW5/fetchRemoteFile.html)
 
 [CW6](https://alperen317.github.io/AdvancedProgramming/CW6/CW6.html)
+
+[CW/](https://alperen317.github.io/AdvancedProgramming/CW7/index.html)
