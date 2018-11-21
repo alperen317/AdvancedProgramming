@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<script>
+arkaplan();
+const t4= {transform: ["rotate(0deg)","rotate(360deg)","translateY(0px)","translateY(340px)"]}
+const t3= {transform: ["translateY(5px)","translateY(-125px)"]}
+const t1 = {transform: ["translateX(-50px)","translateX(400px)"]}
+const t2 = {transform: ["translateX(0px)","translateX(-400px)"]}
+function playLoop(){
+//bok
+animate.style.visibility="visible"
+setTimeout(function(){animate.style.visibility = "hidden" }, 5000);
+
+setTimeout(function(){document.getElementById("animate").animate(t4, 5000),100})
+//gif geçişi
+jpg1.src = "giphy.gif"
+jpg2.src = "giphy2.gif"
+
+//mavi top hareket
+setTimeout(function(){document.getElementById("txt").animate(t3, 7500)},100)
+setTimeout(function(){document.getElementById("jpg3").animate(t1, 5000)},100)
+jpg3.style.visibility = "visible"
+setTimeout(function(){jpg1.src="bir.png"; }, 1000);
+setTimeout(function(){jpg3.style.visibility = "hidden" }, 5000);
+
+
+//kırmızı top hareket
+setTimeout(function(){document.getElementById("jpg4").animate(t2, 5000)},100)
+jpg4.style.visibility = "visible"
+setTimeout(function(){jpg2.src="iki.png"; }, 1000);
+setTimeout(function(){jpg4.style.visibility = "hidden" }, 5000);
+}
+
+function arkaplan(){
+document.body.style.backgroundColor = "black";
+}
+
+
+</script>
+<head>
+
+	
+	
+	<meta charset="UTF-8">
+	<title>Home Work 3 </title>
+	<h1 id="txt" style="background-color:cyan" align="center">Home Work 3 </h1>
+	<div id ="animate"style="visibility:hidden"></div>
+	<img id='jpg1' src="bir.png"  width="250" height="250"  align="left">
+	<img id='jpg2' src="iki.png"  width="250" height="250"  align="right" >
+	<div class="play"><img id='jpg3' src="top.png"  width="125" height="125"  align="right"style="visibility:hidden" > 
+	</div>
+	<div class="play2"><img id='jpg4' src="a.png"  width="125" height="125"  align="right"style="visibility:hidden" > 
+	</div>
+		
+	<div class="buton"> <input type=button value="Play" onClick="playLoop()">
+	</div>
+	
+
+	
+	<style>
+	
+	
+	#animate {
+
+  left: 500px;
+  top: 350px;
+  border-radius: 20px;
+  width: 350px;
+  height: 350px;
+  position: absolute;
+  background-color: red;
+}
+	body{
+	document.body.style.backgroundColor = "black";
+	
+	}
+	.play2{
+		
+ 		position: absolute;
+		 left: 1050px;
+		 top: 100px;
+	}
+	.play{
+		
+ 		position: absolute;
+		 left: 200px;
+		 top: 100px;
+	}
+	.buton {
+     position: absolute;
+    left: 650px;
+    top: 400px;
+	}
+</style>
+	
+</head>
+</body>
+
+<footer>
+		
+</footer>
