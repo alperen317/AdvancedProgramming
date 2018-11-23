@@ -13,7 +13,7 @@ div {
 }
 a {
     text-decoration: none;
-    color: #008CBA;
+    color: cyan;
 }
 p {
     text-indent: 50px;
@@ -23,6 +23,7 @@ p {
 
 </style>
  <script>
+	 document.body.style.background = "gray"
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('sw.js')
