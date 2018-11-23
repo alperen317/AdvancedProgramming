@@ -6,6 +6,9 @@
   
 </head>
 <style>
+body{
+ background : gray;	
+}
 
 div {
     border: 3px solid black;
@@ -23,7 +26,7 @@ p {
 
 </style>
  <script>
-	 document.body.style.background = "gray"
+	
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('sw.js')
