@@ -1,9 +1,9 @@
 {
   "name": "Ali Alperen ASLAN",
   "start_url": "/AdvancedProgramming/CW7/index.html",
- "display": "fullscreen",
-"orientation": "portrait",
+  "display": "standalone",
   "background_color": "cyan",
+  
   "icons": [
     {
       "src": "JS.png",
