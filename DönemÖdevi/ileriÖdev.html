@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>AliAlperenASLAN</title>
+</head>
+<style>
+* { margin:0; padding:0; }
+html, body { width:100%; height:100%; }
+canvas { display:block; }
+</style>
+<html>
+<body>
+
+</body>
+<script>
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+//tanımlamalar
+
+
+
+var starArray = [];
+var enemyArray = [];
+
+
+
+
+//canvas oluşturma 
+canvas = document.createElement('canvas');
+canvas.id = 'screen';
+//body canvası ekleme
+document.body.appendChild(canvas);
+//canvas boyutları
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+// canvas getContext(2d)
+var canvas = document.getElementById('screen');
+var screenWidth = canvas.width;
+console.log(screenWidth);
+var screenHeight = canvas.height;
+
+var ctx = canvas.getContext("2d");
+
+var player = new Player();
+
+function gameLoop() {
+    window.requestAnimationFrame(gameLoop);
+ 
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, screenWidth, screenHeight);
+        if (randomNumber(1, 100) < 50) {
+           starArray.push(new Star());
+        }
+		 if (randomNumber(1, 100) < 2) {
+            enemyArray.push(new Enemy());
+        }   
+        draw();
+}
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
+//star class
+function Star(){
+    //star x, y 
+    this.x = randomNumber(1, screenWidth);
+    this.y = 0;
+    //boyut 
+    this.radius = 1.2;
+    //bir sonra ki hareket için ikinci y 
+    this.yd = randomNumber(1, 7);
+    this.color = "white";
+} 
+
+function draw() {
+    drawStars();
+    drawPlayer();
+	drawEnemy();
+
+}
+function drawStars() {
+    for (var i = 0; i < starArray.length; i++) {
+        ctx.fillStyle = starArray[i].color;
+        ctx.beginPath();
+        ctx.arc(starArray[i].x, starArray[i].y, starArray[i].radius, 0, Math.PI *2);
+        ctx.fill();
+        ctx.closePath();
+        starArray[i].y += starArray[i].yd;
+        
+    }
+}
+
+function drawEnemy() {
+    for (var i = 0; i < enemyArray.length; i++) {
+        ctx.fillStyle = enemyArray[i].color;
+        ctx.beginPath();
+        ctx.arc(enemyArray[i].x, enemyArray[i].y, enemyArray[i].radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+        enemyArray[i].y += enemyArray[i].yd;
+        if (enemyArray[i].y > screenHeight) {
+            enemyArray.splice(i, 1);
+        }
+    }
+}
+//player classı
+function Player() {
+    this.size = 50;
+    this.x = (screenWidth-50) / 2;
+    this.y = (screenHeight-75);
+    this.speed = 5;
+    this.key = false;
+    this.shots = 0;
+
+}
+//enemy class
+function Enemy() {
+    this.x = randomNumber(player.size, screenWidth-50);
+    this.y = 0;
+    this.color = 'green';
+    this.radius = 20;
+    this.yd = 3;
+}
+
+  
+var img = new Image();
+img.src = "wall.png"
+function drawPlayer(){
+
+   ctx.beginPath();
+   ctx.moveTo(player.x, player.y);
+    ctx.lineTo(player.x - player.size, player.y + player.size);
+    ctx.lineTo(player.x + player.size, player.y + player.size);
+    ctx.closePath();
+    ctx.fillStyle = "cyan";
+    ctx.fill();
+	
+	
+   
+
+   
+   
+ 
+}
+
+gameLoop();
+</script>
+</html>
