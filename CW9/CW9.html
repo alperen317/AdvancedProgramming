@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>SVG and Canvas </title>
+
+  <style>
+    svg, canvas {
+        background: cyan;
+        font: 10px arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+
+<h2>Using Canvas</h2>
+<canvas id="canvas" width="500" height="300"></canvas>
+<hr>
+<label for="colorWell">Circle  Color :</label>
+<input type="color" value="#ff0000" id="colorWell" onchange="colorFunction()" >
+<label for="colorWell">Circle StrokeStyle Color:</label>
+<input type="color" value="#ff0000" id="colorWell2" onchange="colorFunction()" >
+
+<hr>
+X : <input type="number" id="X" value="50">
+Y : <input type="number" id="Y" value="50"><br>
+<button onclick="degis()" type="button">Konum Değiş</button>
+
+<p>Canvas is an image drawn by JavaScript</p>
+<pre id="sample">function draw() {<br>    cx.beginPath(); cx.lineWidth = 4;<br>    cx.fillStyle = "purple"; cx.strokeStyle = "blue";<br>    cx.arc(50, 50, 40, 0, 2*Math.PI);<br>    cx.fill(); cx.stroke();<br>    cx.fillStyle = "black"; <br>    cx.fillText("arc",44,55);<br><br>    cx.beginPath(); cx.lineWidth = 5;<br>    cx.fillStyle = "pink"; cx.strokeStyle = "red";<br>    cx.rect(110, 10, 100, 80);<br>    cx.fill(); cx.stroke();<br>    cx.fillStyle = "black"; <br>    cx.fillText("rect",148,55);<br>}</pre>
+
+<script>
+ var a;
+
+var circleColor = "blue"
+var circleStroke = "black"
+var cricleBoyut1 = 50;
+var cricleBoyut2 = 50;
+var cricleX = 50;
+var cricleY =50;
+var text = "circle";
+
+function degis(){
+    drawCircle(circleColor,circleStroke, X.value, Y.value);
+
+}
+
+
+function colorFunction(){
+    
+    drawCircle(colorWell.value, colorWell2.value,cricleX,cricleY);
+    circleColor = colorWell.value;
+    circleStroke = colorWell2.value
+}
+
+function drawCircle(circleColor, circleStroke,x ,y) {
+    cx.clearRect(0,0,canvas.width, canvas.height);
+  
+    circleX = x;
+    circleY = y;
+    cx.beginPath(); cx.lineWidth = 4;
+    cx.fillStyle = circleColor; cx.strokeStyle = circleStroke;
+    // x , y r başlangic derece bitiş derece.
+    cx.arc(x, y, 40, 0, 2*Math.PI);
+    cx.fill(); cx.stroke();
+    cx.fillStyle = "black"; 
+  
+   
+
+   
+}
+
+
+    sample.innerText = drawCircle;
+    const cx = canvas.getContext("2d");
+ 
+
+   drawCircle(circleColor,circleStroke,cricleX, cricleY , text);
+
+</script>
+
+
+
+</body></html>

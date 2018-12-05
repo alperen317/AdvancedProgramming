@@ -16,6 +16,8 @@ Class Work
 
 [CW7](https://alperen317.github.io/AdvancedProgramming/CW7/index.html)
 
+[CW9](https://alperen317.github.io/AdvancedProgramming/CW9/CW9.html)
+
 Home Work
 
 [HW1](https://alperen317.github.io/AdvancedProgramming/Homework1.html)
@@ -26,4 +28,4 @@ Home Work
 
 [HW4 (Repo PWA)](https://alperen317.github.io/AdvancedProgramming/HW4/index.html)
 
-[HW5](https://alperen317.github.io/AdvancedProgramming/DönemÖdevi/ileriÖdev.html)
+[HW5](Dönem Ödevi)(https://alperen317.github.io/AdvancedProgramming/DönemÖdevi/ileriÖdev.html)
