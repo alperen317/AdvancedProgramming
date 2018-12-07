@@ -15,6 +15,8 @@
 </head>
 
 <body>
+<button onclick="goBack()">Go Back</button>
+<hr>
 <p><b id=docName></b> &nbsp;
 <a href="https://maeyler.github.io/JS/sss/">Read me</a> &nbsp;
 <a href="https://maeyler.github.io/JS/sss/Turkish">Turkish</a>
@@ -24,6 +26,10 @@
 
 <script>
 "use strict";
+
+function goBack() {
+    window.history.back();
+}
 
 var a, b, c, code;  //global variables
 function init() {
@@ -48,7 +54,6 @@ function init() {
         reportError(e);
     }
 </script>
-
 
 
 
