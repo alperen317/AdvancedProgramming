@@ -86,6 +86,7 @@ p {
     letter-spacing: 5px;
 }
 div{
+
 	border-style: solid; 
 	border-radius: 10px;
 
@@ -96,13 +97,20 @@ div{
 
 </style>
  <script>
- 
+ var counter = 0;
  //local storage test 
  myStorage = window.localStorage;
  myStorage.setItem('myCat', 'Tom');
  var cat = localStorage.getItem('myCat');
  console.log(cat);
  
+ function submitFunc(){
+	counter++;
+	console.log(counter+"     "+nameTxt.value);
+	myStorage.setItem(counter, nameTxt.value);
+
+	
+ }
 	
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
@@ -151,6 +159,16 @@ Home Work
 	  <br>
 </ul>
 </div>
+
+
+
+
+<form action="/action_page.php">
+First name: <input type="text" id="nameTxt" name="FirstName" value="Mickey"><br>
+<input type="button" value="Submit" onclick="submitFunc()">
+</form>
+
+
 
 
 <br>
