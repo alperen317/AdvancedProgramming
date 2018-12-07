@@ -1,0 +1,14 @@
+{
+  "name": "Ali Alperen ASLAN",
+  "start_url": "/AdvancedProgramming/HW4/index.html",
+  "display": "standalone",
+  "background_color": "blue",
+  
+  "icons": [
+    {
+      "src": "JS.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
