@@ -78,11 +78,17 @@ x = <input type=text   id=xe value=53 style="width:99px">
 <p>
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections" target="ExternalDocument">Set Examples</a>
 </p>
+<hr />
+<button onclick="goBack()">Go Back</button>
 
 <script>
     title.innerText = document.title;
     const a = [234, "abc", "son"];  //initially
     reportA("start");
+	
+	function goBack() {
+    window.history.back();
+}
 </script>
 
 </body>

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+<button onclick="goBack()">Go Back</button>
 <h2 id=title></h2>
 
 <p>Minimum correlation =
@@ -22,9 +22,7 @@
 <pre id=sample></pre>
 
 <hr />
-<p>Ref: <a href="http://eloquentjavascript.net/04_data.html#p_LI+01yIQON" 
-   target="ExternalDocument">Chap 4, Final analysis</a>
-</p>
+
 
 <script>
 function report(a) {
@@ -34,6 +32,10 @@ function report(a) {
     title.innerText = document.title; 
     report([...EVENTS])  //Set to Array
     sample.innerText = analyze+"\n"+journalEvents;
+	
+function goBack() {
+    window.history.back();
+}
 </script>
 
 </body>

@@ -73,6 +73,9 @@
             .then(r => r.blob())  //response r
             .then(b => report(b.size+" bytes"));
     }
+	function goBack() {
+    window.history.back();
+}
 </script>
 
 <body>
@@ -102,7 +105,7 @@
 
 
 <hr />
-
+<button onclick="goBack()">Go Back</button>
 
 </body>
 </html>

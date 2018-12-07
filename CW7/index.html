@@ -118,11 +118,14 @@ div{
                 .then((reg) => { console.log('SW Registered', reg) })
                 .catch(console.log)
         }
+			function goBack() {
+    window.history.back();
+}
     </script>
 
 <body>
 <h1 > <font color="#f4f4f4">Ali Alperen ASLAN JavaScript - HTML - CSS</font></h1>
-
+<button onclick="goBack()">Go Back</button>
 <p >
 Class Work
 </p>

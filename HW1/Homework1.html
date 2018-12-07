@@ -18,6 +18,10 @@
 </style>
 
 <script>
+
+function goBack() {
+    window.history.back();
+}
 "use strict";
 var max = 0;
 var maxN = "";
@@ -33,6 +37,7 @@ function Kaydet(){
 	
 	
 }
+
 function average(){
 	var avg = 0;
 	var cıktı = "";
@@ -76,7 +81,11 @@ function Max(){
 </script>
 
 <body>
+
+<button onclick="goBack()">Go Back</button>
+<hr>
 <h2 id=title>Add Course</h2>
+
 <p>
 Name<input type=text id=nameX  style="width:99px">  
 </p>

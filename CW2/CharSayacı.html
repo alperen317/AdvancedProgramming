@@ -28,6 +28,9 @@
 
 <a href="/AdvancedProgramming/CW2/ArrayMethod.html">ArrayMethod </a>
 
+<hr />
+<button onclick="goBack()">Go Back</button>
+
 <script>
     //global variable id is the HTML element with id 
     //const title = document.getElementById("title");
@@ -35,6 +38,10 @@
     sample.innerText = cnt.toString();
     out.innerHTML = "Modify all items marked xxx";
     var count = 0; cnt();
+	
+	function goBack() {
+    window.history.back();
+}
 </script>
 
 </body>

@@ -2,6 +2,11 @@
 <html lang="en">
 <body>
 <script>
+
+function goBack() {
+    window.history.back();
+}
+
 arkaplan();
 const t4= {transform: ["rotate(0deg)","rotate(360deg)","translateY(0px)","translateY(340px)"]}
 const t3= {transform: ["translateY(5px)","translateY(-125px)"]}
@@ -37,6 +42,7 @@ document.body.style.backgroundColor = "black";
 }
 
 
+
 </script>
 <head>
 
@@ -54,6 +60,7 @@ document.body.style.backgroundColor = "black";
 	</div>
 		
 	<div class="buton"> <input type=button value="Play" onClick="playLoop()">
+	<button onclick="goBack()">Go Back</button>
 	</div>
 	
 

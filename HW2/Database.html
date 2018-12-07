@@ -8,6 +8,9 @@
 </head>
 
 <script>
+function goBack() {
+    window.history.back();
+}
    const Q = new Database()
 	Q.readStudent;
     Q.readCoruses;
@@ -117,9 +120,11 @@
 </script>
 
 <body>
-	
+	<button onclick="goBack()">Go Back</button>
+		<hr />
     <h2 id=title>HomeWork 2</h2>
 	<hr />
+	
 		<b>İd</b> &emsp;&emsp;<input type=text id=idX style="width:100px; margin-left: 6px;">
 		<b>Name</b> &emsp;&emsp;<input type=text id=nameX style="width:100px; margin-left: 6px;">
 		<b>Gpa</b> &emsp;&emsp;<input type=text id=GpaX style="width:100px; margin-left: 6px;">

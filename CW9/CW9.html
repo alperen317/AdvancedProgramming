@@ -16,8 +16,12 @@
 
 
 <h2>Using Canvas</h2>
+<hr>
+<button onclick="goBack()">Go Back</button>
+<hr>
 <canvas id="canvas" width="500" height="300"></canvas>
 <hr>
+
 <label for="colorWell">Circle  Color :</label>
 <input type="color" value="#ff0000" id="colorWell" onchange="colorFunction()" >
 <label for="colorWell">Circle StrokeStyle Color:</label>
@@ -32,6 +36,9 @@ Y : <input type="number" id="Y" value="50"><br>
 <pre id="sample">function draw() {<br>    cx.beginPath(); cx.lineWidth = 4;<br>    cx.fillStyle = "purple"; cx.strokeStyle = "blue";<br>    cx.arc(50, 50, 40, 0, 2*Math.PI);<br>    cx.fill(); cx.stroke();<br>    cx.fillStyle = "black"; <br>    cx.fillText("arc",44,55);<br><br>    cx.beginPath(); cx.lineWidth = 5;<br>    cx.fillStyle = "pink"; cx.strokeStyle = "red";<br>    cx.rect(110, 10, 100, 80);<br>    cx.fill(); cx.stroke();<br>    cx.fillStyle = "black"; <br>    cx.fillText("rect",148,55);<br>}</pre>
 
 <script>
+function goBack() {
+    window.history.back();
+}
  var a;
 
 var circleColor = "blue"

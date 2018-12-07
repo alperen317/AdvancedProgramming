@@ -5,6 +5,10 @@
     <title>CW6 </title>
 
 <script>
+	function goBack() {
+    window.history.back();
+}
+
 readStudent()
 database_students = new Map();
 const studentsArray = []
@@ -136,6 +140,7 @@ function parseStudent(line){
 <hr />
 <p id=out2></p>
 <hr />
+<button onclick="goBack()">Go Back</button>
 <hr />
 
 <script>
