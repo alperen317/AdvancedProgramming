@@ -28,4 +28,4 @@ Home Work
 
 [HW4 (Repo PWA)](https://alperen317.github.io/AdvancedProgramming/HW4/index.html)
 
-[HW5](Dönem Ödevi)(https://alperen317.github.io/AdvancedProgramming/DönemÖdevi/ileriÖdev.html)
+[HW5](Dönem Ödevi)(https://alperen317.github.io/AdvancedProgramming/İleriDönemÖdevi2/ileriÖdev2.html)
