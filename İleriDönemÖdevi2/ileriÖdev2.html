@@ -63,7 +63,7 @@ function randomNumber(min, max) {
 
 
 //tanımlamalar
-
+var score = 0;
 var starArray = [];
 var enemyArray = [];
 var keyboardArray = [];
@@ -137,7 +137,7 @@ function draw() {
     drawPlayer();
 	drawEnemy();
 	drawShot();
-
+    drawScore();
 }
 
 
@@ -228,7 +228,7 @@ function drawPlayer(){
 		console.log("aaa")
       
         player.shot();
-          console.log(shotArray[0])
+          
     }
 
 
@@ -255,11 +255,27 @@ function drawShot() {
             shotArray.splice(i, 1);
             continue;            
         }
+        for (var j = 0; j < enemyArray.length; j++) {
+            if (distance(shotArray[i], enemyArray[j]) < enemyArray[j].radius) {
+                enemyArray.splice(j, 1);
+                score += 1;
+                drawEnemy();
+                shotArray.splice(i, 1);
+            } 
+        }
         
       
     }
 }
-
+function drawScore() {
+      ctx.font = "50px Verdana bold" ;
+      ctx.fillStyle = "white";
+      ctx.textAlign = "right";
+      ctx.fillText(score, screenWidth - 20, 60);
+    };
+function distance(a, b) {
+    return Math.sqrt(Math.pow((b.x - a.x), 2) + Math.pow((b.y - a.y), 2));
+};
 
 document.addEventListener('keydown', function (e) {
     keyboardArray[e.keyCode] = true;
