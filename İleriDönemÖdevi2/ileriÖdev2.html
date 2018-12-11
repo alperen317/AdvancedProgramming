@@ -27,20 +27,25 @@ canvas { display:block; }
 
 <script src="virtualjoystick.js"></script>
 		<script>
-			console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
+			
+		</script>
+
+</body>
+<script>
+console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 	
 			var joystick	= new VirtualJoystick({
 				container	: document.getElementById('container'),
 				mouseSupport	: true,
 			});
 			joystick.addEventListener('touchStart', function(){
-				console.log('down')
+					player.shot();
 			})
 			joystick.addEventListener('touchEnd', function(){
-				console.log('up')
+				player.shot();
 			})
 			setInterval(function(){
-				var outputEl	= document.getElementById('result');
+				
 				     
 					+ ' dx:'+joystick.deltaX()
 					+ ' dy:'+joystick.deltaY()
@@ -49,10 +54,9 @@ canvas { display:block; }
 					+ (joystick.left()	? ' left'	: '')
 					+ (joystick.down()	? ' down' 	: '')	
 			}, 1/30 * 1000);
-		</script>
 
-</body>
-<script>
+
+
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -85,13 +89,14 @@ var player = new Player();
 
 
 
-	
+
 function gameLoop() {
 
 
 
     window.requestAnimationFrame(gameLoop);
- 
+
+
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, screenWidth, screenHeight);
         if (randomNumber(1, 100) < 50) {
@@ -127,12 +132,15 @@ function Shot() {
 }
 
 function draw() {
+  
     drawStars();
     drawPlayer();
 	drawEnemy();
 	drawShot();
 
 }
+
+
 function drawStars() {
     for (var i = 0; i < starArray.length; i++) {
         ctx.fillStyle = starArray[i].color;
@@ -143,6 +151,7 @@ function drawStars() {
         starArray[i].y += starArray[i].yd;
         
     }
+   
 }
 
 function drawEnemy() {
@@ -199,25 +208,27 @@ function Enemy() {
 
 function drawPlayer(){
 	
-	  if (keyboardArray[37] || joystick.left() && (player.x + player.size) > player.size * 2) {
+	  if ((keyboardArray[37] || joystick.left() )&& (player.x + player.size) > player.size * 2) {
         player.moveLeft();    
     }
      
-    if (keyboardArray[39] || joystick.right() && (player.x + player.size) < screenWidth) {
+    if ((keyboardArray[39] || joystick.right() )&& (player.x + player.size) < screenWidth) {
         player.moveRight();
     }
     
-    if (keyboardArray[38]  || joystick.up() && (player.y + player.size) > player.size) {
+    if ((keyboardArray[38]  || joystick.up() )&& (player.y + player.size) > player.size) {
         player.moveUp();    
     }
     
-    if (keyboardArray[40]  || joystick.down() && (player.y + player.size) < screenHeight) {
+    if ((keyboardArray[40]  || joystick.down()) && (player.y + player.size) < screenHeight) {
         player.moveDown();
     }
     
     if (keyboardArray[32]) {
 		console.log("aaa")
+      
         player.shot();
+          console.log(shotArray[0])
     }
 
 
