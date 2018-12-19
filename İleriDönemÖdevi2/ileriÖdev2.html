@@ -93,15 +93,17 @@ var player = new Player();
 function gameLoop() {
 
 
-
+   //sürekli devam sağlamak için
     window.requestAnimationFrame(gameLoop);
 
-
+	//arka plan oluşturma
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, screenWidth, screenHeight);
+		//belirli sayıda arka plan için yıldız 
         if (randomNumber(1, 100) < 50) {
            starArray.push(new Star());
         }
+		//belirli sayıda arka plan düşman 
 		 if (randomNumber(1, 100) < 2) {
             enemyArray.push(new Enemy());
         }   
@@ -116,16 +118,16 @@ function Star(){
     this.x = randomNumber(1, screenWidth);
     this.y = 0;
     //boyut 
-    this.radius = 1.2;
-    //bir sonra ki hareket için ikinci y 
-    this.yd = randomNumber(1, 7);
+    this.radius = 1;
+    //bir sonra ki hareket için ikinci 
+    this.yd = randomNumber(1, 8);
     this.color = "white";
 } 
 //shot class
 function Shot() {
     this.size = 10;
     this.color = 'cyan';
-    this.radius = 2;
+    this.radius = 5;
     this.x = player.x;
     this.y = player.y;
     this.yd = 10;
@@ -142,6 +144,7 @@ function draw() {
 
 
 function drawStars() {
+    //yıldız arrayinde dolaşarak yıldızları oluşturuyor
     for (var i = 0; i < starArray.length; i++) {
         ctx.fillStyle = starArray[i].color;
         ctx.beginPath();
@@ -163,6 +166,7 @@ function drawEnemy() {
         ctx.closePath();
         enemyArray[i].y += enemyArray[i].yd;
         if (enemyArray[i].y > screenHeight) {
+			
             enemyArray.splice(i, 1);
         }
     }
@@ -225,8 +229,6 @@ function drawPlayer(){
     }
     
     if (keyboardArray[32]) {
-		console.log("aaa")
-      
         player.shot();
           
     }
@@ -252,6 +254,7 @@ function drawShot() {
         shotArray[i].y -= shotArray[i].yd;
         
         if (shotArray[i].y < 1) {
+			//Shot array de ki y ekseninde  ekrandan çıkınca silinmesi için
             shotArray.splice(i, 1);
             continue;            
         }
@@ -263,6 +266,7 @@ function drawShot() {
                 shotArray.splice(i, 1);
             } 
         }
+		
         
       
     }
@@ -289,6 +293,8 @@ document.addEventListener('keyup', function (e) {
 
 
 gameLoop();
+
+
 </script>
 
 </html>
