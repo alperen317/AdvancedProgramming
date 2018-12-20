@@ -28,7 +28,7 @@ canvas { display:block; }
 <script>
 
 
-
+var bool = false;
 
 
 
@@ -157,7 +157,7 @@ buttonArray.push(buttonAgain);
 //button event 
 canvas.addEventListener('click', function(evt) {
     var mousePos = getMousePos(canvas, evt);
-	mousePos.onmousedown = function(){player.moveRight()};
+	
 		
 
 	for(item in buttonArray){
@@ -178,42 +178,72 @@ canvas.addEventListener('click', function(evt) {
 				player.shot();
 			}
 			if(item == 5){
-			
-				canvas.addEventListener("mousedown", mouseDown)	;
-				canvas.addEventListener("mouseup", mouseUp)	;
+				console.log("left")
+				//keyboardArray[37] = true;
 				
-			}
-			if(item == 6){
-				canvas.addEventListener("mousedown", mouseDown1)
-				canvas.addEventListener("mouseup", mouseUp1)	
 			}
 			
 		}
-	
+		
 	}
-
+	
+	
 	});
- function mouseDown() {
- console.log("down 37 left")
- console.log("----------")
-  keyboardArray[37] = true;
-}
-function mouseUp() {
-	console.log("up 37 left")
-	 console.log("----------")
-  keyboardArray[37] = false;
-}
+	
+	
+	
+canvas.addEventListener('mousedown', function(evt) {
+    var mousePos = getMousePos(canvas, evt);
+	
+		
 
-function mouseDown1() {
-	console.log("down 39 left")
-	 console.log("----------")
-  keyboardArray[39] = true;
-}
-function mouseUp1() {
-		console.log("up 39 left")
-		 console.log("----------")
-  keyboardArray[39] = false;
-}
+	for(item in buttonArray){
+		if(isInside(mousePos, buttonArray[item])){
+			if(item == 5){
+
+				keyboardArray[37] = true;
+				
+			}
+			if(item == 6){
+				keyboardArray[39] = true;
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	});
+	
+	
+canvas.addEventListener('mouseup', function(evt) {
+    var mousePos = getMousePos(canvas, evt);
+	
+		
+
+	for(item in buttonArray){
+		if(isInside(mousePos, buttonArray[item])){
+			if(item == 5){
+				
+				keyboardArray[37] = false;
+				
+			}
+			if(item == 6){
+				keyboardArray[39] = false;
+			
+			}
+			
+		}
+		
+	}
+	
+	
+	});
+	
+			
+
+
 
 function drawMenu(){
 	
@@ -338,12 +368,12 @@ function drawPlayer(){
 
 	
 	
-	  if ((keyboardArray[37]   )&& (player.x + player.size)+50 > player.size * 2) {
+	  if ((keyboardArray[37]  )&& (player.x + player.size)+50 > player.size * 2) {
 		
         player.moveLeft();    
     }
      
-    if ((keyboardArray[39] )&& (player.x + player.size) < screenWidth-50) {
+    if ((keyboardArray[39]   )&& (player.x + player.size) < screenWidth-50) {
         player.moveRight();
     }
     
