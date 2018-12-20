@@ -76,7 +76,7 @@ function Player() {
     this.size = 50;
     this.x = (screenWidth-50) / 2;
     this.y = (screenHeight-75);
-    this.speed = 5;
+    this.speed = 10;
     this.key = false;
     this.shots = 0;
 	
@@ -157,11 +157,13 @@ buttonArray.push(buttonAgain);
 //button event 
 canvas.addEventListener('click', function(evt) {
     var mousePos = getMousePos(canvas, evt);
-	mousePos.onmousedown = function(){player.moveRight()};
+	
+
 		
 
 	for(item in buttonArray){
 		if(isInside(mousePos, buttonArray[item])){
+		
 			if(item == 0){
 				gameLoop();
 			}
@@ -177,44 +179,50 @@ canvas.addEventListener('click', function(evt) {
 			if(item == 4){
 				player.shot();
 			}
-			if(item == 5){
-			
-				canvas.addEventListener("mousedown", mouseDown)	;
-				canvas.addEventListener("mouseup", mouseUp)	;
+			if(item == 5 ){
 				
 			}
-			if(item == 6){
-				canvas.addEventListener("mousedown", mouseDown1)
-				canvas.addEventListener("mouseup", mouseUp1)	
-			}
+
 			
 		}
 	
 	}
 
 	});
- function mouseDown() {
- console.log("down 37 left")
- console.log("----------")
-  keyboardArray[37] = true;
-}
-function mouseUp() {
-	console.log("up 37 left")
-	 console.log("----------")
-  keyboardArray[37] = false;
-}
 
-function mouseDown1() {
-	console.log("down 39 left")
-	 console.log("----------")
-  keyboardArray[39] = true;
-}
-function mouseUp1() {
-		console.log("up 39 left")
-		 console.log("----------")
-  keyboardArray[39] = false;
-}
+	
+	
+	
+	canvas.addEventListener('touchstart', function(evt) {
+	x = evt.touches[0].clientX;
+	y = evt.touches[0].clientY;
+	var mousePos = getMousePos(canvas, evt);
+	mousePos.x  = x;
+	mousePos.y = y;
 
+	if(isInside(mousePos, buttonArray[5])){
+		keyboardArray[37] = true;
+	}
+	if(isInside(mousePos, buttonArray[6])){
+		keyboardArray[39] = true;
+	}
+	
+	
+	
+	
+	});
+
+	canvas.addEventListener('touchend', function(evt) {
+		keyboardArray[37] = false;
+		keyboardArray[39] = false;
+	});
+	
+
+	
+	
+	
+	
+	
 function drawMenu(){
 	
     
