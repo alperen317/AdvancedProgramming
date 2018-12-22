@@ -43,6 +43,10 @@ canvas { display:block; }
 </body>
 <script>
 
+
+
+
+
 var mainSound = document.getElementById("myAudio"); 
 var laserSound = document.getElementById("myAudio2");
 var boomSound = document.getElementById("myAudio3");  
@@ -54,6 +58,7 @@ var boomSound = document.getElementById("myAudio3");
 
 var timeLeft = 30;
 	var timerId ;
+
 
 
 
@@ -121,6 +126,7 @@ function Player() {
         if (shotArray.length === 0) {
             shotArray.push(new Shot());
         }
+		
     };
 }
 
@@ -201,7 +207,7 @@ canvas.addEventListener('click', function(evt) {
 				setTimeout("location.reload(true);");
 			}
 			if(item == 3){
-				window.location.href = 'https://alperen317.github.io/AdvancedProgramming/DönemÖdevi/UsefullLink.txt';
+				window.location.href = 'https://alperen317.github.io/AdvancedProgramming/DönemÖdevi/usefull.html';
 			}
 			if(item == 4){
 				player.shot();
@@ -251,6 +257,8 @@ canvas.addEventListener('click', function(evt) {
 	
 	
 function drawMenu(){
+
+
 	
 	ctx.font = "50px Verdana bold";
 	ctx.fillStyle = "cyan";
@@ -273,6 +281,9 @@ function drawMenu(){
 	ctx.font = "25px Verdana bold";
 	ctx.fillStyle = "white";
 	ctx.fillText("Github",(screenWidth-70)/2, (screenHeight+50)/2);
+	
+	
+	
 		
 }
 
@@ -481,6 +492,7 @@ function drawShot() {
             continue;            
         }
         for (var j = 0; j < enemyArray.length; j++) {
+			console.log(enemyArray[j].radius)
             if (distance(shotArray[i], enemyArray[j]) < enemyArray[j].radius) {
                 enemyArray.splice(j, 1);
                 score += 1;
