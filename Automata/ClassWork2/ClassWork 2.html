@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)file:///C:/Users/alper/OneDrive/Masa%C3%BCst%C3%BC/CW2.html -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width">
+    <title>HomeWork 2 </title>
+</head>
+
+<body>
+
+<h2 id="title"></h2>
+
+<p>HomeWork 2</p>
+
+
+<pre id="out"></pre>
+
+<hr>
+
+
+<style>
+    table { 
+        border-collapse: collapse; 
+        margin: 0 50px; 
+    }
+    th { 
+        color: blue; 
+        padding: 5px 12px; 
+    }
+    td { 
+        border: 1px solid blue; 
+        padding: 5px 12px; 
+        text-align: center; 
+    }
+</style>
+
+<b>NFA</b>
+<br>
+
+<table>
+<tbody><tr><th></th><th>0</th><th>1</th></tr>
+<tr><th>&gt; A</th><td>AB</td><td>A</td></tr>
+<tr><th> B</th><td>C</td><td>ϕ</td></tr>
+<tr><th>* C</th><td>ϕ</td><td>ϕ</td></tr>
+</tbody></table>
+
+<br>
+
+
+
+<b>DFA</b>
+<table>
+<tbody><tr><th></th><th>0</th><th>1</th></tr>
+<tr><th>&gt; A</th><td>B</td><td>A</td></tr>
+<tr><th> B</th><td>C</td><td>A</td></tr>
+<tr><th>* C</th><td>C</td><td>A</td></tr>
+</tbody></table>
+
+
+
+
+
+<pre id="sample">Regex List =  4,8,12,16,20,24,28,32,36,40,44,48<br>DFA List = 4,8,12,16,20,24,28,32,36,40,44,48<br>NFA List = 4,8,12,16,20,24,28,32,36,40,44,48</pre>
+
+<hr>
+
+<script>
+"use strict";
+function union(a, b) { //set operation using strings
+    let s = a
+    for (let x of b) if (!a.includes(x)) s += x
+    return s
+}
+function intersect(a, b) {
+    let s = ''
+    for (let x of b) if (a.includes(x)) s += x
+    return s
+}
+function deltaDFA(q, c) { 
+    if (q=='A' && c=='0') return 'B'
+    if (q=='A' && c=='1') return 'A'
+    if (q=='B' && c=='0') return 'C'
+	if (q=='B' && c=='1') return 'A'
+	if (q=='C' && c=='0') return 'C'
+	if (q=='C' && c=='1') return 'A'	
+    return '';  //default -- no transition
+}
+function acceptDFA(w, F='C', q='A') {
+    //w: input String
+    //F: final state(s)
+    //q: current state
+    let i = 0, txt = q
+    while (i < w.length) {
+        q = deltaDFA(q, w[i])
+        if (q == '') break
+        i++; txt += " -> "+q
+    }
+    input.selectionStart = i
+    input.selectionEnd = i+1
+    let a = (q!='' && F.includes(q))
+    return a
+}
+function testDFA(w,f) {
+	console.log(w,f)
+    let s = acceptDFA(w, f)
+	return s
+    
+}
+
+
+function deltaNFA(q, c) { 
+    if (q=='A' && c=='0') return 'AB'
+    if (q=='A' && c=='1') return 'A'
+    if (q=='B' && c=='0') return 'C'
+    return ''; 
+}
+
+
+function acceptNFA(w, F='C', Q='A') {
+    //w: input String
+    //F: final state(s)
+    //Q: current state(s)
+    let i = 0, txt = Q
+    while (i < w.length) {
+        let c = w[i], T=''
+        for (let q of Q) 
+            T = union(T, deltaNFA(q, c))
+        Q = T
+        if (Q == '') break
+        i++; txt += ", "+c+" -> "+Q+'\n'+Q
+    }
+    input.selectionStart = i
+    input.selectionEnd = i+1
+    let a = intersect(Q, F).length > 0
+	console.log(a)
+    return a
+}
+function testNFA(w,f) {
+    let s = acceptNFA(w, f);
+    return s
+}
+
+
+var RegList=[]
+var NfaLİst=[]
+var DfaList=[]
+var myReg = /00$/
+function Reg(){
+	for(var i=0; i<=50; i++){
+		let w = i.toString(2)
+		if(testNFA(w,"C")){
+		   NfaLİst.push(i);
+		}
+		if(testDFA(w,"C")){
+			print("a")
+			DfaList.push(i);
+		}
+		if(myReg.test(w)){
+			RegList.push(i);
+		}
+	}
+
+}
+    //title.innerText = document.title;
+    //sample.innerText = deltaNFA+'\n'+accept;
+    //testNFA();
+	Reg();
+	sample.innerText = "Regex List =  "+RegList +"\n"+ "DFA List = "+DfaList +"\n"+ "NFA List = "+NfaLİst
+	
+</script>
+
+</body></html>
