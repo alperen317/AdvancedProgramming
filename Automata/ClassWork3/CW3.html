@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Regular Expressions  W3school</title>
+  <style>
+  /* pre { border: solid 1px } */
+    #pat { width: 90px; }
+    #inp { width: 250px; }
+    .found { color: #F60; }
+  </style>
+</head>
+
+<body>
+<h2 id=title></h2>
+
+<p>
+Pattern <input type=text id=pat onKeyUp="checkRE()">&emsp; 
+<select id=menu onChange="setValues()">
+<option>Letter<option>Number<option>Suffix<option>x+letter<option>Ref<option>[^h]
+</select> 
+</p>
+<p>
+Input <input type=text id=inp onKeyUp="checkRE()">
+</p>
+<p id=out></p>
+
+<hr />
+<b>Sample code</b>
+<pre id=sample></pre>
+<hr />
+<p>Ref: <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" target="ExternalDocument">W3school</a>
+</p>
+
+<script>
+"use strict";
+const ptrn = ["[a-z]", "[0-9]{4}", "d[iuü][km]", "x[a-z]","Ref","[^h]"];
+const word = 
+    ["Bir iki üç dört beş altı ", "Bugün 23/6/2018 saat 14",
+     "Geldim gördüm buldum...", "Excellent expression tax ","Ref ='https://www.w3schools.com/jsref/jsref_obj_regexp.asp'","Is this all there is?"];
+function setValues() {
+    pat.value = ptrn[menu.selectedIndex];
+    inp.value = word[menu.selectedIndex];
+    checkRE();
+}
+function checkRE() {
+    if (pat.value && inp.value) {
+        const exp = new RegExp(pat.value,'g');
+		console.log(exp)
+        const str = "<span class=found>$&</span>";
+		console.log(str)
+        out.innerHTML = inp.value.replace(exp, str);
+    }
+}
+    sample.innerText = setValues.toString()+"\n"+checkRE.toString();
+    title.innerText = document.title; setValues();
+</script>
+
+</body>
+</html>
