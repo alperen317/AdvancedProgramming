@@ -2,12 +2,13 @@ Automata Theory
 
 ClassWork
 
-[CW1]()
+[CW2](https://alperen317.github.io/AdvancedProgramming/Automata/CW2/CW2.html)
 
-[CW2]()
+[CW3](https://alperen317.github.io/AdvancedProgramming/Automata/CW3/CW3.html)
 
 Home Work
 
+[HW1](https://alperen317.github.io/AdvancedProgramming/Automata/HW1/HW1.html)
 
 AdvancedProgramming
 
