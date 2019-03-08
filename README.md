@@ -1,6 +1,17 @@
+Automata Theory
+
+ClassWork
+
+[CW1]()
+
+[CW2]()
+
+Home Work
+
+
 AdvancedProgramming
 
-Class Work
+Classwork
 
 [CW1](https://alperen317.github.io/AdvancedProgramming/CharSayacı.html)
 
@@ -18,7 +29,7 @@ Class Work
 
 [CW9](https://alperen317.github.io/AdvancedProgramming/CW9/CW9.html)
 
-Home Work
+Homework
 
 [HW1](https://alperen317.github.io/AdvancedProgramming/Homework1.html)
 
@@ -29,3 +40,6 @@ Home Work
 [HW4 (Repo PWA)](https://alperen317.github.io/AdvancedProgramming/HW4/index.html)
 
 [HW5(Dönem Ödevi)](https://alperen317.github.io/AdvancedProgramming/DönemÖdevi/AliAlperenASLAN.html)
+
+
+

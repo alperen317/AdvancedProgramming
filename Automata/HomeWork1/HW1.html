@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>HomeWork 1 </title>
+</head>
+
+<body>
+
+<h2 id=title></h2>
+<h1>Automata Theory</h1>
+<p>HomeWork 1</p>
+Pattern <input type=text id=pat onKeyUp="checkRE()">&emsp;
+<select id=menu onChange="setValues()">
+<option>String<option>Array
+</select> 
+
+</br>
+</br>
+<input type="text" id="inp" onkeyup="checkRE()">
+
+<p id=out1></p><br>
+<style>
+body{
+	background-color : grey;
+
+}
+  #pat { width: 90px; }
+input[type="text"] {
+    width: 85%;
+	height: 20px;
+}
+
+.found { color: red; }
+.found2{ color: blue; }
+</style>
+
+<script>
+"use strict";
+var re1 = /("([^"]|"")*")/g;
+var re2 = /\[.*?\]/g 
+pat.value = re1
+inp.value = 'let longString = "This is a very long string which needs "+"to wrap across multiple lines because "+"otherwise my code is unreadable.";'
+
+
+
+const ptrn = [re1, re2];
+const word = []
+let a = 'let longString = "This is a very long string which needs "+"to wrap across multiple lines because "+"otherwise my code is unreadable.";'
+let b = " var vegetables = ['Cabbage', 'Turnip', 'Radish', 'Carrot']; "
+word.push(a)
+word.push(b)
+
+checkRE(ptrn[menu.selectedIndex],inp.value)
+function setValues() {
+    pat.value = ptrn[menu.selectedIndex];
+    inp.value = word[menu.selectedIndex];
+    checkRE(ptrn[menu.selectedIndex], inp.value );
+}
+function checkRE(a = ptrn[menu.selectedIndex], b) {    
+   const str = "<span class=found2>$&</span>";
+   const str2 = "<span class=found>$&</span>";
+	
+	if (pat.value && inp.value) {
+		const exp = pat.value
+        
+	
+		if(menu.selectedIndex == 0 ){
+        out1.innerHTML = inp.value.replace(a, str);
+		}
+		if(menu.selectedIndex == 1){
+		out1.innerHTML = inp.value.replace(a, str2);
+		
+		}
+        
+    }
+
+	
+}
+</script>
+<a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" target="ExternalDocument">RegExp</a></p>
+<a href="https://alperen317.github.io/AdvancedProgramming/" target="ExternalDocument">Github</a></p>
+</body>
+</html>
