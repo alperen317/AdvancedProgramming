@@ -10,7 +10,7 @@
 
 <h2 id=title></h2>
 <h1>Automata Theory</h1>
-<p>HomeWork 1</p>
+<h2>Homework 1</h2>
 Pattern <input type=text id=pat onKeyUp="checkRE()">&emsp;
 <select id=menu onChange="setValues()">
 <option>String<option>Array
@@ -21,6 +21,16 @@ Pattern <input type=text id=pat onKeyUp="checkRE()">&emsp;
 <input type="text" id="inp" onkeyup="checkRE()">
 
 <p id=out1></p><br>
+
+<h2>Example</h2>
+<pre>String -->   /("([^"]|"")*")/g</pre>
+<pre>Array  -->   /\[.*?\]/g </pre>
+<p></p>
+<p id=out2></p>
+<p id=out3></p>
+<p id=out4></p>
+<h4>Sample code</h4>
+<pre id=sample></pre>
 <style>
 body{
 	background-color : grey;
@@ -37,12 +47,15 @@ input[type="text"] {
 </style>
 
 <script>
+sample.innerText = checkRx.toString()+"\n"+checkR.toString();
 "use strict";
 var re1 = /("([^"]|"")*")/g;
 var re2 = /\[.*?\]/g 
 pat.value = re1
 inp.value = 'let longString = "This is a very long string which needs "+"to wrap across multiple lines because "+"otherwise my code is unreadable.";'
 
+const str = "<span class=found2>$&</span>";
+const str2 = "<span class=found>$&</span>";
 
 
 const ptrn = [re1, re2];
@@ -52,15 +65,43 @@ let b = " var vegetables = ['Cabbage', 'Turnip', 'Radish', 'Carrot']; "
 word.push(a)
 word.push(b)
 
-checkRE(ptrn[menu.selectedIndex],inp.value)
+checkRE(ptrn[menu.selectedIndex],inp.value);
+
+let a3 = 'let adString = "Ali Alperen ASLAN ----> TEST";'
+let a1 = 'var fruits = ["Apple", "Banana", "Orange"];'
+let a2 = 'var years = [1950, 1960, 1970, 1980, 1990, 2000, 2010];'
+out3.innerHTML = a2;
+out2.innerHTML = a1;
+out4.innerHTML = a3;
+
+// 
+checkR(a1, re2, out2);
+checkR(a2, re2, out3);
+checkRx(a3, re1, out4);
+
+
+function checkR(strng , pttrn , out){
+	if(pttrn = re2){
+		out.innerHTML = strng.replace(pttrn , str2);
+	}
+}
+
+function checkRx(strng , pttrn , out){
+	if(pttrn = re1){
+		out.innerHTML = strng.replace(pttrn , str);
+	}
+}
+
+
+
 function setValues() {
     pat.value = ptrn[menu.selectedIndex];
     inp.value = word[menu.selectedIndex];
     checkRE(ptrn[menu.selectedIndex], inp.value );
 }
-function checkRE(a = ptrn[menu.selectedIndex], b) {    
-   const str = "<span class=found2>$&</span>";
-   const str2 = "<span class=found>$&</span>";
+function checkRE(a = ptrn[menu.selectedIndex], b) {  
+   let result = "";
+  
 	
 	if (pat.value && inp.value) {
 		const exp = pat.value
@@ -68,15 +109,17 @@ function checkRE(a = ptrn[menu.selectedIndex], b) {
 	
 		if(menu.selectedIndex == 0 ){
         out1.innerHTML = inp.value.replace(a, str);
+		result = inp.value.replace(a, str);
+		return result
 		}
 		if(menu.selectedIndex == 1){
 		out1.innerHTML = inp.value.replace(a, str2);
-		
+		result = inp.value.replace(a, str2);
+		return result
 		}
         
     }
 
-	
 }
 </script>
 <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" target="ExternalDocument">RegExp</a></p>
