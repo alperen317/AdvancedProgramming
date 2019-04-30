@@ -14,7 +14,22 @@
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
-
+.buttonX {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin:2px 2px;
+  cursor: pointer;
+}
+.buttonX2 {background-color: #2196F3;} /* Blue */
+.buttonX3 {background-color: #f44336;} /* Red */ 
+.buttonX4 {background-color: #e7e7e7; color: black;} /* Gray */ 
+.buttonX5 {background-color: #555555;} /* Black */
 #tape {
     display: flex;
     margin: 1em auto;
@@ -191,6 +206,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 <body >
 
+<header class="w3-container w3-blue w3-center" style="padding:0px 5px">
+  <h1 class="w3-margin w3-large">Binary addition on Turing Machine Simulator</h1>  
+</header>
+
 <img src="status.jpg" class="responsive">
   
 
@@ -199,14 +218,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
             <div id="funArea" class="w3-content">
             
           
-                <h1  >Fun Area </h1>
+                <h1>  </h1>
             
                   <div >
 
         <div class="container">
        
                 <div class="inputs" >             
-         
+				
                  
                   <div id="Time-Speed" class="w3-third">
                         <span class="label">faster &#160; &#160;&#160; </span>
@@ -214,17 +233,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                         <span class="label">  &#160;&#160;&#160; slower </span>
 
                     </div>
+					
+					</br>
+					</br>
+					</br>
                     <div id="init-value" class="w3-third">
-                            <span class="label">inputs:</span>
+                            <span class="label">Number 1:</span>
                             <input id="init-value-input" type="text" onkeyup="tm.loadInput()" />
                           </div>
-                    <select onchange="tm.examplesBox()" id="ExamlpesDropDown" class="w3-third">
-                            <option > {0 <sup>n</sup> 1 <sup>n</sup> | n &ge; 1} example - accepted </option>
-                            <option > {0 <sup>n</sup> 1 <sup>n</sup> | n &ge; 1} example - rejected</option>
-                            <!-- <option >Minus example - Works </option>
-                            <option >Minus example - Error </option> -->
-                           
-                        </select><br />
+						  
+				    <div id="init-value" class="w3-third">
+                            <span class="label">Number 2:</span>
+                            <input id="init-value-input2" type="text" value=" 0000001" onkeyup="tm.loadInput()" />
+                          </div>
+						  
+                <br />
                 </div>
                 <br />
                 <div class="w3-container">
@@ -429,12 +452,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 
+
 const TO_LEFT = '<';
 const TO_RIGHT = '>';
 const STOP = '0';
 
 
-const FirstAccepted = '0001B0001';
+const FirstAccepted = '0000010';
 const  FirstRejected = '0010';
 const SecondAccepted = '001000';
 const SecondRejected = '011';
@@ -456,11 +480,7 @@ class TuringMachine {
     this.FirstExample_accepted();
     
   }
-  FirstExample_rejected(){
-this.initValue=FirstRejected;
-this.FirstExample();
 
-  }
   FirstExample_accepted(){
     this.initValue = FirstAccepted;
     this.FirstExample();
@@ -495,37 +515,7 @@ this.FirstExample();
      this.createTape();
   }
 
-  secondExample_rejected(){
-    this.initValue=SecondRejected;
-    this.secondExample();
-    
-      }
-      secondExample_accepted(){
-        this.initValue = SecondAccepted;
-        this.secondExample();
-    
-      }
-      secondExample(value){
-        this.hideTable1();
-        this.alphabet = '01';
-       // this.initValue = value;
-        this.speed = 1000;
-        this.countOfStates = 7;
-        this.rejectedMessage="could not evaluate";
-        this.acceptedMessage="Evaluated";
-        this.states = [
-          ['_>2','_>6',''    ],
-          ['0>2','1>3',''    ],
-          ['1<4','1>3','_<5' ],
-          ['0<4','1<4','_>1' ],
-          ['0<5','_<5','0>7' ],
-          ['_>6','_>6','_>7' ],
-          ['','',''    ],
-         ];
-         document.getElementById('init-value-input').value = this.initValue;  
-         document.getElementById('time-input').value = this.speed;
-         this.createTape();
-      }
+
       hideTable1(){
     document.getElementById('table_example1').style.display ='none'; 
     this.showTable2();
@@ -634,9 +624,9 @@ this.FirstExample();
     }
 
   }
-  load(initValue = '0011 0001',speed = 1000) {
+  load(initValue = '0000010 0000001',speed = 1000) {
 
-    this.selectCellOfTape(10);
+    this.selectCellOfTape(14);
     this.currentState=1;
     this.initValue = initValue;
     this.speed = speed;
@@ -774,9 +764,11 @@ this.clearTableBorder(this.Coloumn, this.row);
 
     this.loadInput();
   }
+
   loadInput(){
     this.clearLast();
-    tm.load(document.getElementById('init-value-input').value, 
+	let number = document.getElementById('init-value-input').value + document.getElementById('init-value-input2').value
+    tm.load(number, 
     document.getElementById('time-input').value);
 
 
@@ -918,5 +910,7 @@ tm.load();
 </script>
 
 </body>
-
+<footer class="w3-container w3-padding-64 w3-center ">
+<button onclick="window.location.href='https://alperen317.github.io/AdvancedProgramming/'" class="buttonX buttonX2">Github</button><button onclick="window.location.href='https://maeyler.github.io/Automata-2018/turing/abdurrahmanRajab_turingMachineSimulator.html'" class="buttonX buttonX2">a0m0rajab</button><button onclick="window.location.href='http://morphett.info/turing/turing.html'" class="buttonX buttonX2">TM Simulator</button><button onclick="window.location.href='https://www.quora.com/How-do-I-make-a-turing-machine-simulator-to-perform-binary-addition'" class="buttonX buttonX2">Quora</button>
+</footer>
 </html>
