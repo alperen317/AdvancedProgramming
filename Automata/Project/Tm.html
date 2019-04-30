@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html>
+<title>Turing Machine Simulator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+
+#tape {
+    display: flex;
+    margin: 1em auto;
+  }
+  
+  .cells-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .cells-container .cell {
+    display: flex;
+    width: 4.5vw;
+    height: 4.5vw;  
+    border-radius: 2.5vw;
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: box-shadow 600ms, background-color 600ms;
+    margin: .3em;
+    cursor: default;
+    box-shadow: 0 0.05vw 0.4vw 0 rgba(0, 0, 0, 0.12), 0 0.5px 5px 0 rgba(0, 0, 0, 0.12);
+  }
+  .cells-container .cell .value {
+    margin: auto;
+    font-size: 3vw;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  .cells-container .cell.selected {
+    position: relative;
+    color: #fff;
+    background-color: #43A047;
+    box-shadow: 0 6px 22px 0 rgba(0, 255, 0, 0.18), 0 4px 15px 0 rgba(0, 255, 0, 0.15);
+  }
+  .cells-container .cell.selected::before {
+    position: absolute;
+    box-sizing: border-box;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: block;
+    content: '';
+    border-radius: 0px 0px 2px 2px;
+  
+    height: 1vw;
+    top: 3.5vw;
+    box-shadow: 0 0.5px 5px 0 rgba(1, 0, 0, 0.12), 0 0.5px 5px 0 rgba(1, 0, 0, 0.12);
+  }
+  .cells-container .cell.selected::after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 2.25vw 2.25vw 0px 0px;
+    display: block;
+    content: '';
+    height: 1vw;
+    box-shadow: 0 0.5px 5px 0 rgba(1, 0, 0, 0.12), 0 0.5px 5px 0 rgba(1, 0, 0, 0.12);
+  }
+
+.btns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+/* Warning Box and its colour */
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+
+
+.alert.warning {background-color: #f44336;}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+/*Model Desgin*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: rgb(0, 0, 0);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+.responsive {
+  width: 100%;
+  height: auto;
+}
+</style>
+<body >
+
+<img src="status.jpg" class="responsive">
+  
+
+
+      <div  class="w3-row-padding w3-light-grey w3-padding-64 w3-container ">
+            <div id="funArea" class="w3-content">
+            
+          
+                <h1  >Fun Area </h1>
+            
+                  <div >
+
+        <div class="container">
+       
+                <div class="inputs" >             
+         
+                 
+                  <div id="Time-Speed" class="w3-third">
+                        <span class="label">faster &#160; &#160;&#160; </span>
+                        <input id="time-input" class="slider" min="500" max="5000" type="range" onchange="tm.loadTime()" />
+                        <span class="label">  &#160;&#160;&#160; slower </span>
+
+                    </div>
+                    <div id="init-value" class="w3-third">
+                            <span class="label">inputs:</span>
+                            <input id="init-value-input" type="text" onkeyup="tm.loadInput()" />
+                          </div>
+                    <select onchange="tm.examplesBox()" id="ExamlpesDropDown" class="w3-third">
+                            <option > {0 <sup>n</sup> 1 <sup>n</sup> | n &ge; 1} example - accepted </option>
+                            <option > {0 <sup>n</sup> 1 <sup>n</sup> | n &ge; 1} example - rejected</option>
+                            <!-- <option >Minus example - Works </option>
+                            <option >Minus example - Error </option> -->
+                           
+                        </select><br />
+                </div>
+                <br />
+                <div class="w3-container">
+                    <div id="tape"  style="overflow-x:auto;">
+                  
+                        <div class="cells-container"></div>
+                      </div>                  </div>
+           
+
+                <div class="btns">
+                  <button id="load-inputs" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue">reset</button>
+                  <button id="step" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue" >step</button>
+                  <button id="run" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue" >run</button>
+                </div>
+
+
+                </div>
+                <div class="w3-content">
+                    <table id="table_example1" class="w3-table-all w3-card-4" style="font-size: 2vw" >
+                            <tbody><tr class="w3-blue">
+                                <td><b>State</b></td>
+                                <td><b>0</b></td>
+                                <td><b>1</b></td>
+                                <td><b>X</b></td>
+                                <td><b>Y</b></td>
+                                <td><b>B</b></td>
+                        
+                            </tr>
+                            <tr>
+                                <td>q<sub>0</sub></td>
+                                <td>(q<SUB>1</SUB>, 0, R)</td>
+                                <td>(q<SUB>1</SUB>, 1, R)</td>
+                                <td></td>
+                                <td></td>
+                                <td>(q<SUB>0</SUB>, B, R)</td>
+                            </tr>
+                            <tr>
+                                <td>q <sub>1</sub></td>
+                                <td>(q<SUB>1</SUB>, 0, R)</td>
+                                <td>(q<SUB>1</SUB>, 1, R)</td>
+                                <td>(q<SUB>1</SUB>, X, R)</td>
+                                <td>(q<SUB>1</SUB>, Y, R)</td>
+                                <td>(q<SUB>2</SUB>, B, R)</td>
+                            </tr>
+                            <tr>
+                                <td>q <sub>2</sub></td>
+                                <td>(q<SUB>2</SUB>, 0, R)</td>
+                                <td>(q<SUB>2</SUB>, 1, R)</td>
+                                <td></td>
+                                <td></td>
+                                <td>(q<SUB>3</SUB>, B, L)</td>
+                            </tr>
+                            <tr>
+                                <td>q <sub>3</sub></td>
+                                <td>(q<SUB>4</SUB>, B, L)</td>
+                                <td>(q<SUB>6</SUB>, B, L)</td>
+                                <td></td>
+                                <td></td>
+                                <td>(q<SUB>9</SUB>, B, L)</td>
+                            </tr>
+                            <tr>
+                                <td>q <sub>4</sub></td>
+                                <td>(q<SUB>4</SUB>, 0, L)</td>
+                                <td>(q<SUB>4</SUB>, 1, L)</td>
+                                <td></td>
+                                <td></td>
+                                <td>(q<SUB>5</SUB>, B, L)</td>
+                            </tr>
+							   <tr>
+                                <td>q <sub>5</sub></td>
+                                <td>(q<SUB>1</SUB>, X, R)</td>
+                                <td>(q<SUB>1</SUB>, Y, R)</td>
+                                <td>(q<SUB>5</SUB>, X, L)</td>
+                                <td>(q<SUB>5</SUB>, Y, L)</td>
+                                <td></td>
+                            </tr>
+							<tr>
+                                <td>q <sub>6</sub></td>
+                                <td>(q<SUB>6</SUB>, 0, L)</td>
+                                <td>(q<SUB>6</SUB>, 1, L)</td>
+                                <td></td>
+                                <td></td>
+                                <td>(q<SUB>7</SUB>, B, L)</td>
+                            </tr>
+							<tr>
+                                <td>q <sub>7</sub></td>
+                                <td>(q<SUB>1</SUB>, Y, R)</td>
+                                <td>(q<SUB>8</SUB>, X, L)</td>
+                                <td>(q<SUB>7</SUB>, X, L)</td>
+                                <td>(q<SUB>7</SUB>, Y, L)</td>
+                                <td></td>
+                            </tr>
+							<tr>
+                                <td>q <sub>8</sub></td>
+                                <td>(q<SUB>1</SUB>, 1, R)</td>
+                                <td>(q<SUB>8</SUB>, 0, L)</td>
+                                <td></td>
+                                <td></td>
+                                <td>(q<SUB>1</SUB>, 1, R)</td>
+                            </tr>
+							<tr>
+                                <td>q <sub>9</sub></td>
+                                <td>(B,0,R)</td>
+                                <td>(B,1,R)</td>
+                                <td>(q<SUB>9</SUB>,0,L)</td>
+                                <td>(q<SUB>9</SUB>,1,L)</td>
+                                <td>(B,B,R)</td>
+                            </tr>
+							
+                        </tbody></table>
+                        <br>
+                        <table id="table_example2" class="w3-table-all w3-card-4" style="font-size: 2vw" >
+                          <tbody><tr class="w3-blue">
+                              <td><b>State</b></td>
+                              <td><b>0</b></td>
+                              <td><b>1</b></td>
+                              <td><b>B</b></td>
+                      
+                          </tr>
+                          <tr>
+                              <td>0</td>
+                              <td>(q1 , B, R)</td>
+                              <td>(q5 , B, R)</td>
+                              <td></td>
+                          </tr>
+                          <tr>
+                              <td>1</td>
+                              <td>(q1 , 0, R)</td>
+                              <td>(q2 , 1, R)</td>
+                              <td></td>
+                          </tr>
+                          <tr>
+                              <td>2</td>
+                              <td>(q3 , 1, R)</td>
+                              <td>(q2 , 1, R)</td>
+                              <td>(q4 , B, R)</td>
+                          </tr>
+                          <tr>
+                              <td>3</td>
+                              <td>(q3 , 0, R)</td>
+                              <td>(q3 , 1, R)</td>
+                              <td>(q0 , B, R)</td>
+                          </tr>
+                          <tr>
+                              <td>4</td>
+                              <td>(q4 , 0, R)</td>
+                              <td>(q4 , B, R)</td>
+                              <td>(q6 , 0, R)</td>
+                          </tr>
+                          <tr>
+                              <td>5</td>
+                              <td>(q5 , B, R)</td>
+                              <td>(q5 , B, R)</td>
+                              <td>(q6 , B, R)</td>
+                          </tr>
+                          <tr>
+                              <td>6</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                          </tr>
+                      </tbody></table>
+                        <div class="w3-container">
+                      </div>
+                    </div>
+
+            </div>
+
+</div>
+                <p class="w3-text-grey">
+           
+              </p>
+            </div>
+          </div>
+
+
+<!-- Footer -->
+
+<!-- Build message model -->
+<!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal2 -->
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div id ="header" class="modal-header">
+      <span class="close">&times;</span>
+      <h2> </h2>
+    </div>
+    <div class="modal-body">
+      <p id="userMessage"></p>
+    </div>
+    <div id ="footer" class="modal-footer">
+      <h3> </h3>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+
+
+
+const TO_LEFT = '<';
+const TO_RIGHT = '>';
+const STOP = '0';
+
+
+const FirstAccepted = '0001B0001';
+const  FirstRejected = '0010';
+const SecondAccepted = '001000';
+const SecondRejected = '011';
+
+class TuringMachine {
+  constructor() {
+    this.isRunning = false;
+    this.lastTimer = null;
+    this.countOfCells = 30;
+    this.indexOfCurrentCell = null;
+    this.currentState = 1;
+    this.Coloumn=1;
+    this.row=1;
+    this.acceptedMessage="Accepted";
+    this.rejectedMessage="Rejected";
+
+	
+	
+    this.FirstExample_accepted();
+    
+  }
+  FirstExample_rejected(){
+this.initValue=FirstRejected;
+this.FirstExample();
+
+  }
+  FirstExample_accepted(){
+    this.initValue = FirstAccepted;
+    this.FirstExample();
+
+  }
+  FirstExample(value){
+    this.alphabet = '01XY';
+   // this.initValue = value;
+    this.hideTable2();
+    this.speed = 1000;
+    this.countOfStates = 9;
+    this.rejectedMessage="Rejected";
+    this.acceptedMessage="Accepted";
+	// birinci yaptığı ikincisi sağ sol ücüncüsüde state
+    this.states = [
+	  // 0     1    x    y       B
+      ['0>2','1>2', '',  ''    ,'_>1'    ], //0
+      ['0>2','1>2', 'X>2','Y>2','_>3'    ], //1
+      ['0>3','1>3',' ', ' '    ,'_<4'    ], //2
+      ['_<5','_<7','  ',' '     ,'_<10'     ], //3
+	  ['0<5','1<5','  ',' '     ,'_<6'     ], //4
+      ['X>2','Y>2','X<6','Y<6',' '     ],  //5
+	  ['0<7','1<7', '' ,' ',     '_<8'     ], //6
+	  ['Y>2','X<9', 'X<8' ,'Y<8 ', ''     ], //7
+	  ['1>2','0<9', ' ' ,' ', '1>2'     ], //8
+	  ['0>_','1>B', '0<10' ,'1<10', '_>_'     ], //9
+
+	  
+     ];
+     document.getElementById('init-value-input').value = this.initValue;  
+     document.getElementById('time-input').value = this.speed;
+     this.createTape();
+  }
+
+  secondExample_rejected(){
+    this.initValue=SecondRejected;
+    this.secondExample();
+    
+      }
+      secondExample_accepted(){
+        this.initValue = SecondAccepted;
+        this.secondExample();
+    
+      }
+      secondExample(value){
+        this.hideTable1();
+        this.alphabet = '01';
+       // this.initValue = value;
+        this.speed = 1000;
+        this.countOfStates = 7;
+        this.rejectedMessage="could not evaluate";
+        this.acceptedMessage="Evaluated";
+        this.states = [
+          ['_>2','_>6',''    ],
+          ['0>2','1>3',''    ],
+          ['1<4','1>3','_<5' ],
+          ['0<4','1<4','_>1' ],
+          ['0<5','_<5','0>7' ],
+          ['_>6','_>6','_>7' ],
+          ['','',''    ],
+         ];
+         document.getElementById('init-value-input').value = this.initValue;  
+         document.getElementById('time-input').value = this.speed;
+         this.createTape();
+      }
+      hideTable1(){
+    document.getElementById('table_example1').style.display ='none'; 
+    this.showTable2();
+  }
+  hideTable2(){
+    document.getElementById('table_example2').style.display ='none'; 
+    this.showTable1();
+  }
+  showTable1(){
+    document.getElementById('table_example1').style.display ='table'; 
+  }
+  showTable2(){
+    document.getElementById('table_example2').style.display ='table'; 
+  }
+  
+
+  get currentValue() {
+    const cell = this.tape[this.indexOfCurrentCell];
+    const value = cell.getElementsByClassName('value');
+    
+    return value.length > 0 ? value[0] : null;
+  }
+  
+  get tape() {
+    return document.getElementsByClassName('cells-container')[0].childNodes;
+  }
+
+  createTape () {
+
+    console.log('Create tape');
+    if (this.initValue.length <= this.indexOfCurrentCell + 1) {
+      this.clearTape();
+      
+      const tape = this.tape;
+      let length = this.initValue.length;
+      this.selectCellOfTape(length-1);
+      for (let l = this.initValue.length, i = this.indexOfCurrentCell ;l-- ; i--) {
+        tape[i].innerHTML = `<div class="value" id="${tape[i].id}">${this.initValue[l]}</div>`;
+      }
+     // this.selectCellOfTape() this.indexOfCurrentCell + this.initValue.length-1;
+      this.selectCellOfTape(this.indexOfCurrentCell-this.initValue.length+1   );
+      this.selectCellOfTape(0);
+
+    }
+  }
+
+  clearTape() {
+    const tape = this.tape;
+    for (let i = tape.length; i--; )
+      tape[i].innerHTML = '';
+  }
+  
+ 
+
+  read() {
+    const value = this.currentValue;
+    
+    return value ? value.innerText : null;
+  }
+  
+  write(v) {    
+    const cell = this.tape[this.indexOfCurrentCell];
+    const value = cell.getElementsByClassName('value');
+    
+    if (value.length > 0) {
+      value[0].innerText = v;
+    } else {
+      cell.innerHTML = `<div class="value" id="${cell.id}">${v}</div>`;
+    }
+  }
+  
+  selectCellOfTape(index) {    
+    if (index < 0 || index > this.countOfCells - 1) return;
+    const tape = this.tape;
+    const cell = tape[this.indexOfCurrentCell];
+    cell.className = 'cell';
+    this.indexOfCurrentCell = index;
+    const activeCell = tape[this.indexOfCurrentCell];
+    activeCell.classList.add('selected');
+  }
+  
+  goLeft() {
+    this.selectCellOfTape(this.indexOfCurrentCell - 1)
+  }
+  
+  goRight() {
+
+    this.selectCellOfTape(this.indexOfCurrentCell + 1)
+  }
+  
+  init() {
+    this.drawCells(this.countOfCells);
+    this.indexOfCurrentCell = 0;
+    const tape = this.tape;
+    const activeCell = tape[this.indexOfCurrentCell];
+    activeCell.classList.add('selected');
+  }
+  drawCells(countOfCells){
+    const tapeContainer = document.getElementsByClassName('cells-container')[0];
+    for (let i = 0; i < countOfCells; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.id = `${i}-cell`;
+      cell.onclick = ({ target: { id } }) => this.selectCellOfTape(parseInt(id));
+      tapeContainer.appendChild(cell);
+    }
+
+  }
+  load(initValue = '0011 0001',speed = 1000) {
+
+    this.selectCellOfTape(10);
+    this.currentState=1;
+    this.initValue = initValue;
+    this.speed = speed;
+    console.log(`initValue: ${this.initValue} speed:${this.speed}`)
+
+    this.createTape();
+  }
+  examplesBox(){
+    switch(getExampleID()){
+      case 0:
+      
+      this.FirstExample_accepted();
+      this.loadInput();
+      
+      break;
+      case 1:
+      this.FirstExample_rejected();
+      this.loadInput();
+      
+      break;
+      case 2:
+      this.secondExample_accepted();
+      this.loadInput();
+      
+      break;
+      case 3:
+      this.secondExample_rejected();
+      this.loadInput(); 
+     
+      break;
+    }
+
+  }
+  setTableBorderColour(Coloumn,row){
+    console.log(this.Coloumn, this.row);
+    this.clearTableBorder(this.Coloumn, this.row);
+    var talbe = document.getElementById("table_example1");
+
+      var trs = talbe.getElementsByTagName("tr")[Coloumn].getElementsByTagName("td")[row];
+    this.Coloumn= Coloumn;
+    this.row = row;
+        trs.style.border = "solid #FF0000"; 
+  }
+
+  clearTableBorder(Coloumn,row){
+    var talbe = document.getElementById("table_example1");
+    var trs = talbe.getElementsByTagName("tr")[Coloumn].getElementsByTagName("td")[row];
+    console.log("clear data "+ Coloumn  + " + "+ row);
+    trs.style.border = ""; 
+  }
+
+  
+  step() {
+    let currentValue = this.read();
+    console.log("current value = "+currentValue);
+    let tapeLetter = currentValue ? this.alphabet.indexOf(currentValue) : this.alphabet.length;
+    var coloumn = this.currentState;
+    var row = tapeLetter+1;
+    console.log("current row = "+row);
+    console.log("current coloumr = "+coloumn);
+    try {
+      
+
+      const currentStatement = this.states[this.currentState - 1][tapeLetter];
+      this.setTableBorderColour(coloumn, row);
+
+    
+    //const currentStatement = this.states[this.currentState - 1][tapeLetter];
+    if (this.isRunning) {
+
+
+
+
+      const letter = currentStatement[0];
+      this.write(letter === '_' ? '' : letter);
+      const command = currentStatement[1];
+      switch(command) {
+        case '<': {
+          this.goLeft();
+          break;
+        }
+        case '>': {
+          this.goRight();
+          break;
+        }
+      }
+
+
+      const state = currentStatement.slice(2);
+      if (state === '0') {
+        this.finish();
+        tm.displayMessage(this.acceptedMessage);
+        // alert("Accepted.");
+        this.clearLast();
+      } else {
+        this.currentState = state;
+        this.border();
+
+      }
+      
+    } else {
+      this.isRunning = true;
+    }
+
+ 
+  } catch (error) {
+    console.log(error);
+    tm.displayMessage( this.rejectedMessage, 1);
+    // alert('Rejected..Try an other value');
+    this.finish();
+  }
+
+  }
+ border(){
+  let currentValue = this.read();
+    console.log("current value = "+currentValue);
+    let tapeLetter = currentValue ? this.alphabet.indexOf(currentValue) : this.alphabet.length;
+    var coloumn = this.currentState;
+    var row = tapeLetter+1;
+    this.setTableBorderColour(coloumn, row);
+
+
+ }
+clearLast(){
+this.clearTableBorder(this.Coloumn, this.row);
+
+}
+
+  finish(){
+    this.isRunning = false;
+    this.currentState = null;
+    document.getElementById('run').innerText = 'run';
+    document.getElementById('load-inputs').style.display = 'block';
+    document.getElementById('step').style.display = 'block';
+
+    this.loadInput();
+  }
+  loadInput(){
+    this.clearLast();
+    tm.load(document.getElementById('init-value-input').value, 
+    document.getElementById('time-input').value);
+
+
+  }
+  // replaced with LoadSlider...
+  loadTime(){
+    this.speed = document.getElementById('time-input').value;
+  }
+  //  to run slider -- need to add a new variable , isRuning is not enough.
+  loadSlider(){
+    this.speed = document.getElementById('time-input').value;
+    if (this.isRunning){
+      clearTimeout(this.lastTimer)
+      this.lastTimer = setTimeout(() =>  
+      this.run(),
+      this.speed);
+    }
+  }
+  run() {
+    console.log("speed = "+ this.speed)
+    this.loadTime();
+    this.step();
+    this.lastTimer = setTimeout(() => {
+      if (this.isRunning) {
+        this.run();
+      }
+    }, this.speed);
+  }
+  
+  stop() {
+    clearTimeout(this.lastTimer)
+  }
+}
+
+  function getExampleID() {
+  var dropdown1 = document.getElementById('ExamlpesDropDown');
+  return dropdown1.selectedIndex;
+  };
+
+const initHandlers = (TuringMachine) => {
+  const loadBtn = document.getElementById('load-inputs');
+  
+  loadBtn.onclick = ev => {
+    tm.loadInput();
+    console.log(getExampleID());
+                          }
+  
+  const runBtn = document.getElementById('run');
+  
+  runBtn.onclick = ({ target }) => {
+    switch(target.innerText) {
+      case 'run': {
+        tm.run();
+        document.getElementById('load-inputs').style.display = 'none';
+        document.getElementById('step').style.display = 'none';
+        target.innerText = 'stop';
+        break;
+      }
+      case 'stop': {
+        tm.stop();
+        // added - try to check it later ... 
+        document.getElementById('load-inputs').style.display = 'flex';
+        document.getElementById('step').style.display = 'flex';
+        target.innerText = 'run';
+        break;
+      }
+    }
+  }
+  
+  const stepBtn = document.getElementById('step');
+  
+  stepBtn.onclick = ev => {
+    tm.step();
+  }
+
+  var modal = document.getElementById('myModal');
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+}
+
+}
+
+const tm = new TuringMachine();
+
+initHandlers(tm);
+tm.init();
+tm.load();
+
+
+
+</script>
+<script>
+      // Used to toggle the menu on small screens when clicking on the menu button
+      // Use template : https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_start_page&stacked=h
+      function myFunction() {
+          var x = document.getElementById("navDemo");
+          console.log("entered");
+          if (x.className.indexOf("w3-show") == -1) {
+              x.className += " w3-show";
+          } else { 
+              x.className = x.className.replace(" w3-show", "");
+          }
+      }
+      // Used Code for Warning message : https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_alerts
+      // https://www.w3schools.com/howto/howto_js_alert.asp
+      var close = document.getElementsByClassName("closebtn");
+      var i;
+
+      for (i = 0; i < close.length; i++) {
+          close[i].onclick = function(){
+              var div = this.parentElement;
+              div.style.opacity = "0";
+              setTimeout(function(){ div.style.display = "none"; }, 600);
+          }
+      }
+
+// document.getElementsByTagName("BODY")[0].style.display = "none";
+// document.getElementsByTagName("BODY")[0].st= "none";
+
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119938930-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119938930-1');
+</script>
+
+</body>
+
+</html>
