@@ -356,6 +356,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                                 <td>(q<SUB>9</SUB>,1,L)</td>
                                 <td>(B,B,R)</td>
                             </tr>
+							<tr>
+                              <td>q<sub>10</sub></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                          </tr>
 							
                         </tbody></table>
                         <br>
@@ -467,7 +473,7 @@ class TuringMachine {
   constructor() {
     this.isRunning = false;
     this.lastTimer = null;
-    this.countOfCells = 30;
+    this.countOfCells = 17;
     this.indexOfCurrentCell = null;
     this.currentState = 1;
     this.Coloumn=1;
@@ -506,8 +512,8 @@ class TuringMachine {
 	  ['0<7','1<7', '' ,' ',     '_<8'     ], //6
 	  ['Y>2','X<9', 'X<8' ,'Y<8 ', ''     ], //7
 	  ['1>2','0<9', ' ' ,' ', '1>2'     ], //8
-	  ['0>_','1>B', '0<10' ,'1<10', '_>_'     ], //9
-
+	  ['0>10','1>10', '0<10' ,'1<10', '_>_'     ], //9
+	  ['','', '','', ''     ], //9
 	  
      ];
      document.getElementById('init-value-input').value = this.initValue;  
