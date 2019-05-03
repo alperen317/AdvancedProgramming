@@ -229,7 +229,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                  
                   <div id="Time-Speed" class="w3-third">
                         <span class="label">faster &#160; &#160;&#160; </span>
-                        <input id="time-input" class="slider" min="200" max="5000" type="range" onchange="tm.loadTime()" />
+                        <input id="time-input" class="slider" min="20" max="5000" type="range" onchange="tm.loadTime()" />
                         <span class="label">  &#160;&#160;&#160; slower </span>
 
                     </div>
@@ -550,7 +550,7 @@ class TuringMachine {
    // this.initValue = value;
     this.hideTable2();
     this.speed = 1000;
-    this.countOfStates = 9;
+    this.countOfStates = 10;
     this.rejectedMessage="Rejected";
     this.acceptedMessage="Accepted";
 	// birinci yaptığı ikincisi sağ sol ücüncüsüde state
@@ -745,7 +745,6 @@ class TuringMachine {
     var row = tapeLetter+1;
     console.log("current row = "+row);
     console.log("current coloumr = "+coloumn);
-    try {
       
 
       const currentStatement = this.states[this.currentState - 1][tapeLetter];
@@ -775,10 +774,11 @@ class TuringMachine {
 
       const state = currentStatement.slice(2);
 	  console.log("state",state)
-      if (state === '0') {
-        this.finish();
-        tm.displayMessage(this.acceptedMessage);
-        // alert("Accepted.");
+      if (state === '11') {
+	    this.finish();
+        //setTimeout(alert("finish"), 3000);
+        alert("Accepted.");
+		
         this.clearLast();
       } else {
         this.currentState = state;
@@ -791,12 +791,7 @@ class TuringMachine {
     }
 
  
-  } catch (error) {
-   console.log(error);
-    setTimeout(alert("Reset") , 100000);
-	
-    location.reload();
-  }
+  
 
   }
  border(){
@@ -871,7 +866,7 @@ this.clearTableBorder(this.Coloumn, this.row);
 
   function getExampleID() {
   var dropdown1 = document.getElementById('ExamlpesDropDown');
-  return dropdown1.selectedIndex;
+  return 0;
   };
 
 const initHandlers = (TuringMachine) => {
