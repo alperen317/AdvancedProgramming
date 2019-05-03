@@ -229,7 +229,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                  
                   <div id="Time-Speed" class="w3-third">
                         <span class="label">faster &#160; &#160;&#160; </span>
-                        <input id="time-input" class="slider" min="500" max="5000" type="range" onchange="tm.loadTime()" />
+                        <input id="time-input" class="slider" min="200" max="5000" type="range" onchange="tm.loadTime()" />
                         <span class="label">  &#160;&#160;&#160; slower </span>
 
                     </div>
@@ -239,12 +239,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 					</br>
                     <div id="init-value" class="w3-third">
                             <span class="label">Number 1:</span>
-                            <input id="init-value-input" type="text" onkeyup="tm.loadInput()" />
+                            <input id="init-value-input"  type="text" value="2" onkeyup="tm.loadInput()" />
                           </div>
 						  
 				    <div id="init-value" class="w3-third">
                             <span class="label">Number 2:</span>
-                            <input id="init-value-input2" type="text" value=" 0000001" onkeyup="tm.loadInput()" />
+                            <input id="init-value-input2" type="text" value="1" onkeyup="tm.loadInput()" />
                           </div>
 						  
                 <br />
@@ -455,6 +455,59 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 <script>
+(function(){
+
+    var ConvertBase = function (num) {
+        return {
+            from : function (baseFrom) {
+                return {
+                    to : function (baseTo) {
+                        return parseInt(num, baseFrom).toString(baseTo);
+                    }
+                };
+            }
+        };
+    };
+        
+    // binary to decimal
+    ConvertBase.bin2dec = function (num) {
+        return ConvertBase(num).from(2).to(10);
+    };
+    
+    // binary to hexadecimal
+    ConvertBase.bin2hex = function (num) {
+        return ConvertBase(num).from(2).to(16);
+    };
+    
+    // decimal to binary
+    ConvertBase.dec2bin = function (num) {
+		let a = ConvertBase(num).from(10).to(2);
+		if(a.length != 7){
+		   let deger = 7-a.length;
+		   a = "0".repeat(deger)+a;
+		}
+        return a;
+    };
+    
+    // decimal to hexadecimal
+    ConvertBase.dec2hex = function (num) {
+        return ConvertBase(num).from(10).to(16);
+    };
+    
+    // hexadecimal to binary
+    ConvertBase.hex2bin = function (num) {
+        return ConvertBase(num).from(16).to(2);
+    };
+    
+    // hexadecimal to decimal
+    ConvertBase.hex2dec = function (num) {
+        return ConvertBase(num).from(16).to(10);
+    };
+    
+    this.ConvertBase = ConvertBase;
+    
+})(this);
+
 
 
 
@@ -464,7 +517,7 @@ const TO_RIGHT = '>';
 const STOP = '0';
 
 
-const FirstAccepted = '0000010';
+//const FirstAccepted = '2';
 const  FirstRejected = '0010';
 const SecondAccepted = '001000';
 const SecondRejected = '011';
@@ -488,7 +541,7 @@ class TuringMachine {
   }
 
   FirstExample_accepted(){
-    this.initValue = FirstAccepted;
+    this.initValue = 2;
     this.FirstExample();
 
   }
@@ -503,16 +556,16 @@ class TuringMachine {
 	// birinci yaptığı ikincisi sağ sol ücüncüsüde state
     this.states = [
 	  // 0     1    x    y       B
-      ['0>2','1>2', '',  ''    ,'_>1'    ], //0
-      ['0>2','1>2', 'X>2','Y>2','_>3'    ], //1
-      ['0>3','1>3',' ', ' '    ,'_<4'    ], //2
-      ['_<5','_<7','  ',' '     ,'_<10'     ], //3
-	  ['0<5','1<5','  ',' '     ,'_<6'     ], //4
-      ['X>2','Y>2','X<6','Y<6',' '     ],  //5
-	  ['0<7','1<7', '' ,' ',     '_<8'     ], //6
-	  ['Y>2','X<9', 'X<8' ,'Y<8 ', ''     ], //7
-	  ['1>2','0<9', ' ' ,' ', '1>2'     ], //8
-	  ['0>10','1>10', '0<10' ,'1<10', '_>_'     ], //9
+      ['0>2','1>2','', '','_>1'    ], //0
+      ['0>2','1>2','X>2','Y>2','_>3'    ], //1
+      ['0>3','1>3','','','_<4'], //2
+      ['_<5','_<7','','','_<10'], //3
+	  ['0<5','1<5','','','_<6'], //4
+      ['X>2','Y>2','X<6','Y<6',''],  //5
+	  ['0<7','1<7', '' ,' ','_<8'], //6
+	  ['Y>2','X<9','X<8','Y<8', ''], //7
+	  ['1>2','0<9','','','1>2'], //8
+	  ['0>10','1>10','0<10','1<10', '_>11'     ], //9
 	  ['','', '','', ''     ], //9
 	  
      ];
@@ -551,7 +604,7 @@ class TuringMachine {
 
   createTape () {
 
-    console.log('Create tape');
+
     if (this.initValue.length <= this.indexOfCurrentCell + 1) {
       this.clearTape();
       
@@ -636,7 +689,6 @@ class TuringMachine {
     this.currentState=1;
     this.initValue = initValue;
     this.speed = speed;
-    console.log(`initValue: ${this.initValue} speed:${this.speed}`)
 
     this.createTape();
   }
@@ -722,6 +774,7 @@ class TuringMachine {
 
 
       const state = currentStatement.slice(2);
+	  console.log("state",state)
       if (state === '0') {
         this.finish();
         tm.displayMessage(this.acceptedMessage);
@@ -730,7 +783,7 @@ class TuringMachine {
       } else {
         this.currentState = state;
         this.border();
-
+        console.log("Current ---- State",state)
       }
       
     } else {
@@ -739,10 +792,10 @@ class TuringMachine {
 
  
   } catch (error) {
-    console.log(error);
-    tm.displayMessage( this.rejectedMessage, 1);
-    // alert('Rejected..Try an other value');
-    this.finish();
+   console.log(error);
+    setTimeout(alert("Reset") , 100000);
+	
+    location.reload();
   }
 
   }
@@ -773,8 +826,15 @@ this.clearTableBorder(this.Coloumn, this.row);
 
   loadInput(){
     this.clearLast();
+	let toplam = parseInt(document.getElementById('init-value-input').value) +parseInt(document.getElementById('init-value-input2').value)
+	console.log(toplam)
+	if(toplam > 127){
+	 alert("Toplamları maximum 127 olabilir.");
+	}
+	let newNumber = ConvertBase.dec2bin(document.getElementById('init-value-input').value)+" "+ConvertBase.dec2bin(document.getElementById('init-value-input2').value);
+	console.log(newNumber)
 	let number = document.getElementById('init-value-input').value + document.getElementById('init-value-input2').value
-    tm.load(number, 
+    tm.load(newNumber, 
     document.getElementById('time-input').value);
 
 
