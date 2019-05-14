@@ -102,11 +102,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   flex-wrap: wrap;
 }
 /* Warning Box and its colour */
-.alert {
+.window.alert {
     padding: 20px;
+	left-margin : 20px;
     background-color: #f44336;
     color: white;
-    opacity: 1;
+    opacity: 0.1;
     transition: opacity 0.6s;
     margin-bottom: 15px;
 }
@@ -215,14 +216,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <br>
 <div id="hWorks" class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
   <div class="w3-content">
-        <div class="w3-third w3-center">
-                <i class="w3-padding-64 w3-text-blue w3-margin-right"></i>
-              </div>
+       
 
-    <div class="w3-twothird">
+    <div class="w3-twothird" ">
       <h1>Turing Makinesinin Tanımı </h1>
       <h5 class="w3-padding-32">
-       <h6 class="w3-text-grey">
+       <h6 class="w3-text-grey" >
 			Turing machine bir kafadan (head) ve bir de teyp bandından (tape) oluşan bir makinedir.<br>
 			Makinede yapılabilecek işlemler : <br>
 			* Yazmak 	<br>
@@ -233,7 +232,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			</h6>
         </h5>
 
-      <p class="w3-text-grey">
+      <p class="w3-text-grey ">
            Turing machine = ( Q, &Sigma;, &Gamma;, &delta;,  q<SUB>0</SUB>, B, F ) 
         <br>Q 	&#160;: sembolü sonlu sayıdaki durumların kümesidir. Yani makinenin işleme sırasında aldığı durumardır.
 		<br>
@@ -268,9 +267,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 				
                  
                   <div id="Time-Speed" class="w3-third">
-                        <span class="label">faster &#160; &#160;&#160; </span>
+                        <span class="label">Hızlı &#160; &#160;&#160; </span>
                         <input id="time-input" class="slider" min="20" max="5000" type="range" onchange="tm.loadTime()" />
-                        <span class="label">  &#160;&#160;&#160; slower </span>
+                        <span class="label">  &#160;&#160;&#160; Yavaş </span>
 
                     </div>
 					
@@ -278,12 +277,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 					</br>
 					</br>
                     <div id="init-value" class="w3-third">
-                            <span class="label">Number 1:</span>
+                            <span class="label">Sayı 1:</span>
                             <input id="init-value-input"  type="text" value="2" onkeyup="tm.loadInput()" />
                           </div>
 						  
 				    <div id="init-value" class="w3-third">
-                            <span class="label">Number 2:</span>
+                            <span class="label">Sayı 2:</span>
                             <input id="init-value-input2" type="text" value="1" onkeyup="tm.loadInput()" />
                           </div>
 						  
@@ -298,9 +297,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
            
 
                 <div class="btns">
-                  <button id="load-inputs" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue">reset</button>
-                  <button id="step" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue" >step</button>
-                  <button id="run" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue" >run</button>
+                  <button id="load-inputs" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue">Sıfırla</button>
+                  <button id="step" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue" >Adım</button>
+                  <button id="run" class="w3-button w3-white w3-round-xlarge w3-border w3-border-blue" >Çalıştır</button>
                 </div>
 
 
