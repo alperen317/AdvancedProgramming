@@ -42,5 +42,6 @@ Homework
 
 [HW5(Dönem Ödevi)](https://alperen317.github.io/AdvancedProgramming/DönemÖdevi/AliAlperenASLAN.html)
 
-
+FingerJs
+[Fingerjs] (https://alperen317.github.io/AdvancedProgramming/fingers.js-master/tests/manual/actionGestures.html)
 
